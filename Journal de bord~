@@ -1,0 +1,18 @@
+	02/03/2016
+Avancement:
+-Mise en place et comprehension partielle du code fournis. 
+-Choix de copier le comportement de PvZ car équilibré et fonctionnel(Food de base: 50 Pts et cout de base de la fourmie moissonneuse et lanceuse : 50 Pts).
+-Choix du terrain PvZ existant: 5 tunnels de 9 cases de long mais il y a une limitation de taille.
+-Mise en place de la fourmie moissonneuse (cout 50 Pts, fournis 50 Pts avec un temps de recharge aléatoire entre 2 et 5 tours).
+-Passage en 60 fps pour plus de fluidité.
+
+Sites consultés:
+http://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
+
+
+	03/03/2016
+Avancement:
+-Mise en place de la fourmie mur.
+-Mise en place de la fourmie affamée.
+-Mise à niveau de la fenêtre en 1280x720 pour obtenir la 9eme case d'affichable et mise à niveau de la limitation à 9.
+
