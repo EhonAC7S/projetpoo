@@ -17,7 +17,7 @@ public class HarvesterAnt extends Ant {
 	 */
 	public HarvesterAnt () {
 		super(1);
-		foodCost=50;
+		foodCost=2;
 	}
 
 	//initialisation des variables pour gérer le temps d'attente aléatoire 
@@ -33,7 +33,7 @@ public class HarvesterAnt extends Ant {
 			i++;
 		}
 		else{
-		colony.increaseFood(50);
+		colony.increaseFood(2);
 		i=0;
 		waitTurn = 1+rand.nextInt(2);
 		}

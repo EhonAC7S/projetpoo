@@ -37,7 +37,6 @@ import ants.ThrowerAnt;
  * @author Joel
  * @version Fa2014
  */
-@SuppressWarnings("serial")
 public class AntGame extends JPanel implements ActionListener, MouseListener {
 
 	/**
