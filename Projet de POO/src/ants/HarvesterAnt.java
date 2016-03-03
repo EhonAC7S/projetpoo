@@ -35,7 +35,7 @@ public class HarvesterAnt extends Ant {
 		else{
 		colony.increaseFood(50);
 		i=0;
-		waitTurn = 2+rand.nextInt(3);
+		waitTurn = 1+rand.nextInt(2);
 		}
 	}
 }
