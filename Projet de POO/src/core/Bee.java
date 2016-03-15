@@ -15,7 +15,7 @@ public class Bee extends Insect {
 	 * @param armor
 	 *            The bee's armor
 	 */
-	public Bee (int armor) {
+	public Bee(int armor) {
 		super(armor);
 	}
 
@@ -25,7 +25,7 @@ public class Bee extends Insect {
 	 * @param ant
 	 *            The ant to sting
 	 */
-	public void sting (Ant ant) {
+	public void sting(Ant ant) {
 		ant.reduceArmor(DAMAGE);
 	}
 
@@ -35,13 +35,13 @@ public class Bee extends Insect {
 	 * @param place
 	 *            The place to move to
 	 */
-	public void moveTo (Place place) {
+	public void moveTo(Place place) {
 		this.place.removeInsect(this);
 		place.addInsect(this);
 	}
 
 	@Override
-	public void leavePlace () {
+	public void leavePlace() {
 		place.removeInsect(this);
 	}
 
@@ -50,7 +50,7 @@ public class Bee extends Insect {
 	 *
 	 * @return if the bee can advance
 	 */
-	public boolean isBlocked () {
+	public boolean isBlocked() {
 		return place.getAnt() != null;
 	}
 
@@ -59,11 +59,10 @@ public class Bee extends Insect {
 	 * otherwise it moves to the exit of its current place.
 	 */
 	@Override
-	public void action (AntColony colony) {
+	public void action(AntColony colony) {
 		if (isBlocked()) {
 			sting(place.getAnt());
-		}
-		else if (armor > 0) {
+		} else if (armor > 0) {
 			moveTo(place.getExit());
 		}
 	}

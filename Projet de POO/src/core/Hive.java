@@ -31,7 +31,7 @@ public class Hive extends Place {
 
 	/**
 	 * Moves in the invaders who are attacking the colony at the given time.
-	 *
+	 //c'est l'histoire de la petite abeille rouge qui s'en va voir sa mère grand, la suite dans la classe place
 	 * @param colony
 	 *            The colony to attack
 	 * @param currentTime

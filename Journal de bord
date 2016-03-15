@@ -17,3 +17,7 @@ Avancement:
 -Mise en place de la fourmie affamée.
 -Mise à niveau de la fenêtre en 1280x720 pour obtenir la 9eme case d'affichable et mise à niveau de la limitation à 9.
 
+
+	14/03/2016 et 15/03/2016
+Avancement:
+-tentative de mise en place de la fourmie de feu. Ne fonctionne pas car elle meurt avant de tuer malgré la redéfinition de reduceArmor() qui appelle leavePlace() qu'à la fin. Cela aurait dû permettre de lui faire faire son action spéciale avant sa mort... 

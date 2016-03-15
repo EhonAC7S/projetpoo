@@ -19,6 +19,7 @@ public class Place {
 	/**
 	 * Creates a new place with the given name and exit
 	 *
+	 //elle recontre la grande méchante fourmi qui la mange, la suite dans la classe Ant
 	 * @param name
 	 *            The place's name
 	 * @param exit

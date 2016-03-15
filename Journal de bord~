@@ -12,6 +12,7 @@ http://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
 
 	03/03/2016
 Avancement:
+-Mise en place de la fourmie lanceuse.
 -Mise en place de la fourmie mur.
 -Mise en place de la fourmie affamée.
 -Mise à niveau de la fenêtre en 1280x720 pour obtenir la 9eme case d'affichable et mise à niveau de la limitation à 9.
