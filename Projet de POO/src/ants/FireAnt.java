@@ -27,7 +27,7 @@ public class FireAnt extends Ant {
 			for (int i = 0; i < colony.getAllBees().size(); i++) {
 				if (this.place == colony.getAllBees().get(i).getPlace()) {
 					System.out.println(i);
-					colony.getAllBees().get(i).reduceArmor(3);
+					colony.getAllBees().get(i).reduceArmor(3,null);
 				}
 			}
 			System.out.println(this + " ran out of armor and expired");

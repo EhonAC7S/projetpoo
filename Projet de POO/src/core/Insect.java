@@ -66,22 +66,10 @@ public abstract class Insect {
 		return armor;
 	}
 
-	/**
-	 * Reduces the insect's current armor (e.g., through damage)
-	 *
-	 * @param amount
-	 *            The amount to decrease the armor by
-	 */
-	public void reduceArmor(int amount) {
-		armor -= amount;
-		if (armor <= 0) {
-			System.out.println(this + " ran out of armor and expired");
-			leavePlace();
-		}
-	}
+
 	
 	/**
-	 * Même fonction qu'au dessus pour permettre à la FireAnt d'exploser avant de mourir. 
+	 * Permet de réduire la vie des insectes et leur permet de réaliser des actions avant leur mort.
 	 *
 	 * 
 	 *            

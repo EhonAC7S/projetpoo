@@ -26,7 +26,7 @@ public class Bee extends Insect {
 	 *            The ant to sting
 	 */
 	public void sting(Ant ant) {
-		ant.reduceArmor(DAMAGE);
+		ant.reduceArmor(DAMAGE, null);
 	}
 
 	/**
