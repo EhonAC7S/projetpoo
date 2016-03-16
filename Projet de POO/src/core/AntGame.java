@@ -196,7 +196,6 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 				}
 				ant.action(colony); // take the action (actually completes the throw now)
 			}
-			//tocard was here
 			// bees take action!
 			for (Bee bee : colony.getAllBees()) {
 				bee.action(colony);

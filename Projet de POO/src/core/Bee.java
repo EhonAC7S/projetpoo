@@ -26,7 +26,7 @@ public class Bee extends Insect {
 	 *            The ant to sting
 	 */
 	public void sting(Ant ant) {
-		ant.reduceArmor(DAMAGE, null);
+		ant.reduceArmor(DAMAGE);
 	}
 
 	/**
@@ -60,10 +60,12 @@ public class Bee extends Insect {
 	 */
 	@Override
 	public void action(AntColony colony) {
-		if (isBlocked()) {
-			sting(place.getAnt());
-		} else if (armor > 0) {
-			moveTo(place.getExit());
+		if(this.armor > 0){ //Rajout pour eviter le bug trouvé avec la fireAnt
+			if (isBlocked()) {
+				sting(place.getAnt());
+			} else if (armor > 0) {
+				moveTo(place.getExit());
+			}
 		}
 	}
 }

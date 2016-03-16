@@ -19,7 +19,6 @@ public abstract class Ant extends Insect {
 		super(armor, null);
 		foodCost = 0;
 	}
-	//triste histoire n'est ce pas ? 
 
 	/**
 	 * Returns the ant's food cost

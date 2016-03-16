@@ -155,7 +155,6 @@ public class AntColony {
 	/**
 	 * Removes the ant inhabiting the given Place
 	 *
-	 //bonjour, il faut toujours relire son code !
 	 * @param place
 	 *            Where to remove the ant from
 	 */

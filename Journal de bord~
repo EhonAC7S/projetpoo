@@ -21,3 +21,4 @@ Avancement:
 	14/03/2016 et 15/03/2016
 Avancement:
 -tentative de mise en place de la fourmie de feu. Ne fonctionne pas car elle meurt avant de tuer malgré la redéfinition de reduceArmor() qui appelle leavePlace() qu'à la fin. Cela aurait dû permettre de lui faire faire son action spéciale avant sa mort... 
+-Arrivée sur un nullPointerException après modification de reduceArmor(). Jusque là, il y avait son dédoublage avec l'argument colony en plus pour la fourmie de feu.

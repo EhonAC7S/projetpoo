@@ -19,10 +19,9 @@ public abstract class Insect {
 	 * @param place
 	 *            The insect's location
 	 */
-	public Insect(int armor, Place place) {
+	public Insect (int armor, Place place) {
 		if (armor <= 0) {
-			throw new IllegalArgumentException(
-					"Cannot create an insect with armor of 0");
+			throw new IllegalArgumentException("Cannot create an insect with armor of 0");
 		}
 		this.armor = armor;
 		this.place = place;
@@ -30,11 +29,11 @@ public abstract class Insect {
 
 	/**
 	 * Creates an Insect with the given armor. The insect's location is null
-	 //
+	 *
 	 * @param armor
 	 *            The insect's armor
 	 */
-	public Insect(int armor) {
+	public Insect (int armor) {
 		this(armor, null);
 	}
 
@@ -44,7 +43,7 @@ public abstract class Insect {
 	 * @param place
 	 *            The insect's current location
 	 */
-	public void setPlace(Place place) {
+	public void setPlace (Place place) {
 		this.place = place;
 	}
 
@@ -53,7 +52,7 @@ public abstract class Insect {
 	 *
 	 * @return the insect's current location
 	 */
-	public Place getPlace() {
+	public Place getPlace () {
 		return place;
 	}
 
@@ -62,19 +61,17 @@ public abstract class Insect {
 	 *
 	 * @return the insect's current armor
 	 */
-	public int getArmor() {
+	public int getArmor () {
 		return armor;
 	}
 
-
-	
 	/**
-	 * Permet de réduire la vie des insectes et leur permet de réaliser des actions avant leur mort.
+	 * Reduces the insect's current armor (e.g., through damage)
 	 *
-	 * 
-	 *            
+	 * @param amount
+	 *            The amount to decrease the armor by
 	 */
-	public void reduceArmor(int amount,AntColony colony) {
+	public void reduceArmor (int amount) {
 		armor -= amount;
 		if (armor <= 0) {
 			System.out.println(this + " ran out of armor and expired");
@@ -83,23 +80,20 @@ public abstract class Insect {
 	}
 
 	/**
-	 * Has the insect move out of its current location. Abstract in case the
-	 * insect takes action when it leaves
+	 * Has the insect move out of its current location. Abstract in case the insect takes action when it leaves
 	 */
-	public abstract void leavePlace();
+	public abstract void leavePlace ();
 
 	/**
 	 * The insect takes an action on its turn
 	 *
 	 * @param colony
-	 *            The colony in which this action takes place (to support
-	 *            wide-spread effects)
+	 *            The colony in which this action takes place (to support wide-spread effects)
 	 */
-	public abstract void action(AntColony colony);
+	public abstract void action (AntColony colony);
 
 	@Override
-	public String toString() {
-		return this.getClass().getName() + "[" + armor + ", " + place + "]"; // supports
-																				// inheritance!
+	public String toString () {
+		return this.getClass().getName() + "[" + armor + ", " + place + "]"; // supports inheritance!
 	}
 }

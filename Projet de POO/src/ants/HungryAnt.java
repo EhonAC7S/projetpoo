@@ -39,7 +39,7 @@ public class HungryAnt extends Ant {
 			Bee target = getTarget();
 			counter = 3;
 			if (target != null) {
-				target.reduceArmor(target.getArmor(),null);
+				target.reduceArmor(target.getArmor());
 			} else {
 				counter = 0;
 			}
