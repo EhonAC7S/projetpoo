@@ -77,7 +77,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	public static final Point PLACE_POS = new Point(40, 180);
 	public static final Dimension PLACE_PADDING = new Dimension(10, 10);
 	public static final int PLACE_MARGIN = 10;
-	public static final Point HIVE_POS = new Point(875, 300);
+	public static final Point HIVE_POS = new Point(975, 300);
 	public static final int CRYPT_HEIGHT = 650;
 	public static final Point MESSAGE_POS = new Point(120, 20);
 	public static final Dimension LEAF_START_OFFSET = new Dimension(30, 30);
@@ -128,6 +128,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		// map clickable areas to what they refer to. Might be more efficient to use separate components, but this keeps everything together
 		antSelectorAreas = new HashMap<Rectangle, Ant>();
 		colonyAreas = new HashMap<Rectangle, Place>();
+
 		colonyRects = new HashMap<Place, Rectangle>();
 		initializeAntSelector();
 		initializeColony();
@@ -344,7 +345,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			g2d.draw(rect); // border box (where to click)
 
 			if (place != tunnelEnd) {
-				g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative image
+				if(place instanceof Water){
+					g2d.setColor(Color.BLUE);
+					g2d.fill(rect);
+					g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative image
+				}
+				else if(place instanceof Place){
+					g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative image
+				}
 			}
 
 			Ant ant = place.getAnt();

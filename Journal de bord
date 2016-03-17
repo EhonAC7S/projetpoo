@@ -2,8 +2,8 @@
 Avancement:
 -Mise en place et comprehension partielle du code fournis. 
 -Choix de copier le comportement de PvZ car équilibré et fonctionnel(Food de base: 50 Pts et cout de base de la fourmie moissonneuse et lanceuse : 50 Pts).
--Choix du terrain PvZ existant: 5 tunnels de 9 cases de long mais il y a une limitation de taille.
--Mise en place de la fourmie moissonneuse (cout 50 Pts, fournis 50 Pts avec un temps de recharge aléatoire entre 2 et 5 tours).
+-Choix du terrain PvZ existant: 5 tunnels de 9 cases de long mais il y a une limitation de taille donc restriction à 8 cases.
+-Mise en place de la fourmie moissonneuse (cout 50 Pts, fournis 50 Pts avec un temps de recharge aléatoire entre 1 et 3 tours).
 -Passage en 60 fps pour plus de fluidité.
 
 Sites consultés:
@@ -27,4 +27,9 @@ Avancement:
 Avancement:
 -Fin de l'implémentation de la fourmie de feu. 
 -Résolution du bug avec plusieurs abeilles sur la même case venant du fait que la fourmie tue au début des actions des abeilles, mettant leurs places en null avant l'action des abeilles et produisant le bug. Résolution par une condition avant les actions des abeilles.
-  
+
+	17/03/2016
+Avancement:
+-Recul du point de spawn des abeilles pour eviter qu'elles passent à travers l'image des tunnels.
+-Création de classe Water et de ses constructeurs.
+-Mise en place de la colorisation en bleu si la case est un instance de water dans la fonction drawColony de la classe AntGame.

@@ -33,10 +33,12 @@ public class AntColony {
 	 * @param startingFood
 	 *            The starting food for this colony.
 	 */
-	public AntColony(int numTunnels, int tunnelLength, int moatFrequency,
-			int startingFood) {
-		// simulation values
+	public AntColony(int numTunnels, int tunnelLength, int moatFrequency,int startingFood) {
+		// pour plus de diversité, nous avons choisis de permettre à chaque case d'avoir une chance sur 4 d'être d'eau  
 		food = startingFood;
+		if(moatFrequency!=0){
+			
+		}
 
 		// init variables
 		places = new ArrayList<Place>();

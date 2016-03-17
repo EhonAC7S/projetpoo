@@ -3,7 +3,6 @@ package ants;
 import core.Ant;
 import core.AntColony;
 import core.Bee;
-import core.Place;
 
 
 /**
