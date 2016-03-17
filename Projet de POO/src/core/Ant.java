@@ -8,18 +8,20 @@ package core;
 public abstract class Ant extends Insect {
 
 	protected int foodCost; // the amount of food needed to make this ant
-
+	protected boolean blockTheWay; //new
+	
 	/**
 	 * Creates a new Ant, with a food cost of 0.
 	 *
 	 * @param armor
 	 *            The armor of the ant.
 	 */
-	public Ant (int armor) {
+	public Ant (int armor) { //new
 		super(armor, null);
 		foodCost = 0;
+		blockTheWay = true; //new
 	}
-
+ 
 	/**
 	 * Returns the ant's food cost
 	 *

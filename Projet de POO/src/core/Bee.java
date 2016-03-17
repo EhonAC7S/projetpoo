@@ -51,7 +51,12 @@ public class Bee extends Insect {
 	 * @return if the bee can advance
 	 */
 	public boolean isBlocked() {
-		return place.getAnt() != null;
+		if(place.getAnt() != null) { //new //S'il y a une fourmi sur la même case que l'abeille
+			return place.getAnt().blockTheWay; //alors on regarde si cette fourmi bloque le passage ou si elle est 'invisible'
+		}
+		else {
+			return false; //sinon le passage est libre : l'abeille se déplace librement.
+		}
 	}
 
 	/**

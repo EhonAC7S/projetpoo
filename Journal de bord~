@@ -33,3 +33,4 @@ Avancement:
 -Recul du point de spawn des abeilles pour eviter qu'elles passent à travers l'image des tunnels.
 -Création de classe Water et de ses constructeurs.
 -Mise en place de la colorisation en bleu si la case est un instance de water dans la fonction drawColony de la classe AntGame.
+-Fourmie Ninja implémentée avec tous les changements nécessaires sur les autres classes. 
