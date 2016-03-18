@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import ants.Containing;
 
 /**
  * Represents a location in the game
@@ -128,7 +129,9 @@ public class Place {
 			this.ant = ant;
 			ant.setPlace(this);
 		}
-		else {
+		else {if (this.ant instanceof Containing) {
+			
+		}
 			System.out.println("Already an ant in " + this); // report error
 		}
 	}
