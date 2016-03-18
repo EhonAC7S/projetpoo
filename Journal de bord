@@ -36,3 +36,7 @@ Avancement:
 -Utilisation de moatFrequency pour définir les cases Water.
 -Fourmie Ninja implémentée avec tous les changements nécessaires sur les autres classes. 
 -Le type Water est implémenté et fonctionnel.
+
+	18/03/2016
+Avancement:
+-Mise en place de la scubaAnt fonctionnelle lançant des feuilles bleus.

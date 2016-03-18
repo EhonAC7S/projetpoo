@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import ants.ScubaThrowerAnt;
 import ants.ThrowerAnt;
 
 /**
@@ -195,6 +196,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 						createLeaf(ant, target);
 					}
 				}
+				if (ant instanceof ScubaThrowerAnt) // if we're a scuba, might need to make a leaf!
+				{
+					Bee target = ((ScubaThrowerAnt) ant).getTarget(); // who we'll throw at (really which square, but works out the same)
+					if (target != null) {
+						createLeaf(ant, target);
+					}
+				}
+				
 				ant.action(colony); // take the action (actually completes the throw now)
 			}
 			// bees take action!
