@@ -12,7 +12,7 @@ public class NinjaAnt extends Ant {
 		super(1);
 		blockTheWay = false;
 		damage = 1;
-		foodCost = 0;
+		foodCost = 6;
 	}
 	
 	@Override

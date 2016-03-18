@@ -10,6 +10,7 @@ public abstract class Insect {
 
 	protected int armor; // insect's current armor
 	protected Place place; // insect's current location
+	protected boolean waterSafe=false;
 
 	/**
 	 * Creates a new Insect with the given armor in the given location
@@ -65,6 +66,15 @@ public abstract class Insect {
 		return armor;
 	}
 
+	/**
+	 * Returns the state of waterSafe for this insect
+	 *
+	 * @return the state of waterSafe for this insect
+	 */
+	public boolean getWaterSafe () {
+		return waterSafe;
+	}
+	
 	/**
 	 * Reduces the insect's current armor (e.g., through damage)
 	 *

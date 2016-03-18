@@ -463,16 +463,16 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 				if (line.matches("\\w.*")) { // not a comment
 					String[] parts = line.split(","); // get the entry parts
 					String antType = ANT_PKG + "." + parts[0].trim(); // prepend package name
-					try {
-						Class.forName(antType); // make sure the class is implemented and we can load it
-						ANT_TYPES.add(antType);
-						ANT_IMAGES.put(antType, ImageUtils.loadImage(parts[1].trim()));
-						if (parts.length > 2) {
-							LEAF_COLORS.put(antType, new Color(Integer.parseInt(parts[2].trim())));
+						try {
+							Class.forName(antType); // make sure the class is implemented and we can load it
+							ANT_TYPES.add(antType);
+							ANT_IMAGES.put(antType, ImageUtils.loadImage(parts[1].trim()));
+							if (parts.length > 2) {
+								LEAF_COLORS.put(antType, new Color(Integer.parseInt(parts[2].trim())));
+							}
 						}
-					}
-					catch (ClassNotFoundException e) {
-					} // if class isn't found, will continue (reading next line)
+						catch (ClassNotFoundException e) {
+						} // if class isn't found, will continue (reading next line)
 				}
 			}
 			sc.close();
@@ -562,10 +562,10 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			Class antClass = Class.forName(antType); // what class is this type
 			Constructor constructor = antClass.getConstructor(); // find the default constructor (using reflection)
 			ant = (Ant) constructor.newInstance(); // call the default constructor to make a new ant
+		
 		}
 		catch (Exception e) {
 		}
-
 		return ant; // return the new ant
 	}
 

@@ -17,6 +17,7 @@ public class Bee extends Insect {
 	 */
 	public Bee(int armor) {
 		super(armor);
+		waterSafe=true;
 	}
 
 	/**

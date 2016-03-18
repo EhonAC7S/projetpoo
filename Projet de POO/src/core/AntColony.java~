@@ -33,8 +33,12 @@ public class AntColony {
 	 * @param startingFood
 	 *            The starting food for this colony.
 	 */
-	public AntColony(int numTunnels, int tunnelLength, int moatFrequency,int startingFood) {  
+	public AntColony(int numTunnels, int tunnelLength, int moatFrequency,int startingFood) {
+		// pour plus de diversité, nous avons choisis de permettre à chaque case d'avoir une chance sur 4 d'être d'eau  
 		food = startingFood;
+		if(moatFrequency!=0){
+			
+		}
 
 		// init variables
 		places = new ArrayList<Place>();
@@ -48,16 +52,11 @@ public class AntColony {
 		Place curr, prev; // reference to current exit of the tunnel
 		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
 			curr = queenPlace; // start the tunnel's at the queen
-			int counter=-1;
-			for (int step = 0; step < tunnelLength; step++){
-				counter+=1;
-				prev = curr; // keep track of the previous guy (who we will exit to)
-				if(moatFrequency!=0 & counter%moatFrequency==1){
-					curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev);
-				}
-				else{
-					curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); 
-				} // create
+			for (int step = 0; step < tunnelLength; step++) {
+				prev = curr; // keep track of the previous guy (who we will exit
+								// to)
+
+				curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); // create
 																				// new
 																				// place
 																				// with
@@ -148,21 +147,9 @@ public class AntColony {
 	 */
 	public void deployAnt(Place place, Ant ant) {
 		if (food >= ant.getFoodCost()) {
-			if(place instanceof Water){
-				if(ant.getWaterSafe()==true){
-					food -= ant.getFoodCost();
-					place.addInsect(ant);
-				}
-				else{
-					System.out.println("Cette fourmie ne sais pas nager! "+ant);
-				}
-			}
-			else{
-				food -= ant.getFoodCost();
-				place.addInsect(ant);
-			}
-		} 
-		else {
+			food -= ant.getFoodCost();
+			place.addInsect(ant);
+		} else {
 			System.out.println("Not enough food remains to place " + ant);
 		}
 	}
