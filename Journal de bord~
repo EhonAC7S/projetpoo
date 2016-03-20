@@ -40,3 +40,5 @@ Avancement:
 	18/03/2016
 Avancement:
 -Mise en place de la scubaAnt fonctionnelle lançant des feuilles bleus.
+-Création de l'interface containing et modification de addInsect() dans Place.java.
+-Mise en place du constructeur de bodyguard.
