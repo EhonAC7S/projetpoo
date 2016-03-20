@@ -1,6 +1,7 @@
 package core;
 
 import ants.Containing;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,12 +31,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import ants.ScubaThrowerAnt;
-import ants.ThrowerAnt;
-import ants.ShortThrowerAnt;
 import ants.LongThrowerAnt;
+import ants.ScubaThrowerAnt;
+import ants.ShortThrowerAnt;
 import ants.SlowAnt;
 import ants.StunAnt;
+import ants.ThrowerAnt;
 
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game
@@ -238,7 +239,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof ScubaThrowerAnt) // if we're a scuba, might
+				if (ant instanceof ScubaThrowerAnt) // if we're a Scuba, might
 													// need to make a leaf!
 				{
 					Bee target = ((ScubaThrowerAnt) ant).getTarget();
@@ -246,50 +247,30 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof ShortThrowerAnt) // if we're a ShortThrower,
-													// might
-				// need to make a leaf!
-				{
-					Bee target = ((ShortThrowerAnt) ant).getTarget(); // who we'll throw at (really which
-																	 // square,but works out the same)
+				if (ant instanceof SlowAnt){ // if we're a SlowAnt, might need to make a leaf!
+					Bee target = ((SlowAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof LongThrowerAnt) // if we're a LongThrower,
-													// might
-				// need to make a leaf!
-				{
-					Bee target = ((LongThrowerAnt) ant).getTarget(); // who we'll throw at (really which
-																	// square,but works out the same)
-	
+				if (ant instanceof StunAnt){ // if we're a StunAnt, might need to make a leaf!
+					Bee target = ((StunAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof SlowAnt) // if we're a SlowThrower,
-					// might
-					// need to make a leaf!
-				{
-					Bee target = ((SlowAnt) ant).getTarget(); // who we'll throw at (really which
-									// square,but works out the same)
-
+				if (ant instanceof ShortThrowerAnt){ // if we're a ShortThrowerAnt, might need to make a leaf!
+					Bee target = ((ShortThrowerAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof StunAnt) // if we're a StunThrower,
-					// might
-					// need to make a leaf!
-				{
-					Bee target = ((StunAnt) ant).getTarget(); // who we'll throw at (really which
-									// square,but works out the same)
-
+				if (ant instanceof LongThrowerAnt){ // if we're a LongThrowerAnt, might need to make a leaf!
+					Bee target = ((LongThrowerAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				
 
 				ant.action(colony); // take the action (actually completes the
 									// throw now)
@@ -477,8 +458,8 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 
 			Ant ant = place.getAnt();
 			if (ant != null) { // draw the ant
-								// if we have
-								// one
+																// if we have
+																// one
 				Image img = ANT_IMAGES.get(ant.getClass().getName());
 				g2d.drawImage(img, rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, null);
 			}

@@ -41,11 +41,18 @@ Avancement:
 Avancement:
 -Mise en place de la scubaAnt fonctionnelle lançant des feuilles bleus.
 -Création de l'interface containing et modification de addInsect() dans Place.java.
--Mise en place du constructeur de bodyguard.
+-Mise en place du constructeur de bodyguard. 
 
 	19/03/2016
 Avancement:
--Correctons des multiples bugs liés à la bodyguard dans la récupération du type de fourmie contenue.
--Modifications adéquate de antgame et de place pour la bodyguard.
+-Corrections des multiples bugs liés à la bodyguard dans la récupération du type de fourmie contenue. En effet il faut utiliser la syntaxe ((Containing) ant).getAnt() pour farie appel à la fourmie dans la Containing.
+-Modifications adéquate de antgame et de place pour la bodyguard. gestion de l'ordre dans lequel on mettait les Containing et Ant. Celle nous a permi de mieux comprendre les interface par rapport aux superclass.
 -Le type BodyGuard est implémenté est fonctionne.
 -Création de la queenAnt mais elle reste non fonctionnelle.
+
+	20/03/2016
+Avancement:
+-Les fourmies bonus ont toutes été implémentées et sont fonctionnelles. Il faut penser à ne pas utiliser de constructeurs avec arguments lorqu'on créer une fourmie, car lors de la création du banc de séléction, cela entraine une erreur NullPointerException.
+-La QueenAnt est rendue unique avec un compteur car le Singleton amenait à un NullPointerException.
+-La QueenAnt ne peut pas être supprimée.
+-Il reste une question lorsque la reine est placée derrière les abeilles et qu'elles atteignent le bout des tunnels, victoire ou défaite?

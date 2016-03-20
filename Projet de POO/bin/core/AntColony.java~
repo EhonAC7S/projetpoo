@@ -2,9 +2,6 @@ package core;
 
 import java.util.ArrayList;
 
-import ants.Containing;
-import ants.QueenAnt;
-
 /**
  * An entire colony of ants and their tunnels.
  *
@@ -36,8 +33,12 @@ public class AntColony {
 	 * @param startingFood
 	 *            The starting food for this colony.
 	 */
-	public AntColony(int numTunnels, int tunnelLength, int moatFrequency, int startingFood) {
+	public AntColony(int numTunnels, int tunnelLength, int moatFrequency,int startingFood) {
+		// pour plus de diversité, nous avons choisis de permettre à chaque case d'avoir une chance sur 4 d'être d'eau  
 		food = startingFood;
+		if(moatFrequency!=0){
+			
+		}
 
 		// init variables
 		places = new ArrayList<Place>();
@@ -51,26 +52,21 @@ public class AntColony {
 		Place curr, prev; // reference to current exit of the tunnel
 		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
 			curr = queenPlace; // start the tunnel's at the queen
-			int counter = -1;
 			for (int step = 0; step < tunnelLength; step++) {
-				counter += 1;
 				prev = curr; // keep track of the previous guy (who we will exit
 								// to)
-				if (moatFrequency != 0 & counter % moatFrequency == 1) {
-					curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev);
-				} else {
-					curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev);
-				} // create
-					// new
-					// place
-					// with
-					// an
-					// exit
-					// that
-					// is
-					// the
-					// previous
-					// spot
+
+				curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); // create
+																				// new
+																				// place
+																				// with
+																				// an
+																				// exit
+																				// that
+																				// is
+																				// the
+																				// previous
+																				// spot
 
 				prev.setEntrance(curr); // the previous person's entrance is the
 										// new spot
@@ -151,31 +147,8 @@ public class AntColony {
 	 */
 	public void deployAnt(Place place, Ant ant) {
 		if (food >= ant.getFoodCost()) {
-			if (place instanceof Water) {
-				if (ant.getWaterSafe() == true) {
-					
-/*/!\**/					if(ant instanceof QueenAnt){
-/*/!\**/						queenTest(place,ant);
-/*/!\**/					}
-/*/!\**/					else{
-/*/!\**/						food -= ant.getFoodCost();
-/*/!\**/						place.addInsect(ant);
-/*/!\**/					}
-
-				} else {
-					System.out.println("Cette fourmie ne sais pas nager! " + ant);
-				}
-			} else {
-				
-/*/!\**/					if(ant instanceof QueenAnt){
-/*/!\**/						queenTest(place,ant);
-/*/!\**/					}
-/*/!\**/					else{
-/*/!\**/						food -= ant.getFoodCost();
-/*/!\**/						place.addInsect(ant);
-/*/!\**/					}
-				
-			}
+			food -= ant.getFoodCost();
+			place.addInsect(ant);
 		} else {
 			System.out.println("Not enough food remains to place " + ant);
 		}
@@ -188,14 +161,9 @@ public class AntColony {
 	 *            Where to remove the ant from
 	 */
 	public void removeAnt(Place place) {
-/*/!\**/		if(place.getAnt() instanceof QueenAnt){
-/*/!\**/			System.out.println("Il est impossible de supprimer sa reine! "+place.getAnt());
-/*/!\**/		}
-/*/!\**/		else{
-			if (place.getAnt() != null) {
-				place.removeInsect(place.getAnt());
-			}
-/*/!\**/		}
+		if (place.getAnt() != null) {
+			place.removeInsect(place.getAnt());
+		}
 	}
 
 	/**
@@ -206,15 +174,8 @@ public class AntColony {
 	public ArrayList<Ant> getAllAnts() {
 		ArrayList<Ant> ants = new ArrayList<Ant>();
 		for (Place p : places) {
-			if (p.getAnt() != null && !(p.getAnt() instanceof Containing)) {
+			if (p.getAnt() != null) {
 				ants.add(p.getAnt());
-			} else {
-				if (p.getAnt() instanceof Containing) {
-					ants.add(p.getAnt());
-					if (((Containing) p.getAnt()).getAnt()!=null)
-					ants.add(((Containing) p.getAnt()).getAnt());
-				}
-
 			}
 		}
 		return ants;
@@ -239,18 +200,4 @@ public class AntColony {
 	public String toString() {
 		return "Food: " + food + "; " + getAllBees() + "; " + getAllAnts();
 	}
-	
-/*/!\**/	public void queenTest(Place place, Ant ant){
-/*/!\**/		if(ant instanceof QueenAnt){
-/*/!\**/					if(Ant.noQueen>=2){
-/*/!\**/						System.out.println("Les imposteurs sont interdits! : "+queenPlace);
-/*/!\**/					}
-/*/!\**/					else{
-/*/!\**/						food -= ant.getFoodCost();
-/*/!\**/						place.addInsect(ant);
-/*/!\**/				queenPlace=place;
-/*/!\**/				System.out.println("La reine est en : "+queenPlace);
-/*/!\**/					}
-/*/!\**/		}
-/*/!\**/	}
 }

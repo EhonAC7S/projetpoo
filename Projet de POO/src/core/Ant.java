@@ -7,8 +7,9 @@ package core;
  */
 public abstract class Ant extends Insect {
 
-	protected int foodCost = 0; // the amount of food needed to make this ant
+	protected int foodCost; // the amount of food needed to make this ant
 	protected boolean blockTheWay; //new
+/*/!\**/	protected static int noQueen=-1; //On part de -1 car le constructeur est appelé une fois pour la barre de selection de fourmie.
 	
 	/**
 	 * Creates a new Ant, with a food cost of 0.
@@ -38,4 +39,10 @@ public abstract class Ant extends Insect {
 	public void leavePlace () {
 		place.removeInsect(this);
 	}
+	
+/*/!\**/	public void noQueen(){
+/*/!\**/			this.reduceArmor(getArmor());
+/*/!\**/			noQueen-=1;
+/*/!\**/			System.out.println("Cette fourmie est une usurpatrice! Elle doit mourir!");	
+/*/!\**/	}
 }
