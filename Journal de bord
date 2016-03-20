@@ -45,6 +45,7 @@ Avancement:
 
 	19/03/2016
 Avancement:
--Correctons des multiples beugs liés à la bodyguard dans la récupération du type de fourmie contenue.
--Modifications adéquate de antgame et place pour la body guard.
+-Correctons des multiples bugs liés à la bodyguard dans la récupération du type de fourmie contenue.
+-Modifications adéquate de antgame et de place pour la bodyguard.
 -Le type BodyGuard est implémenté est fonctionne.
+-Création de la queenAnt mais elle reste non fonctionnelle.

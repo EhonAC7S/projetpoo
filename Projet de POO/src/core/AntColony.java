@@ -1,7 +1,9 @@
 package core;
 
 import java.util.ArrayList;
+
 import ants.Containing;
+import ants.QueenAnt;
 
 /**
  * An entire colony of ants and their tunnels.
@@ -151,12 +153,15 @@ public class AntColony {
 		if (food >= ant.getFoodCost()) {
 			if (place instanceof Water) {
 				if (ant.getWaterSafe() == true) {
+					queenTest(place,ant);
 					food -= ant.getFoodCost();
 					place.addInsect(ant);
+					
 				} else {
 					System.out.println("Cette fourmie ne sais pas nager! " + ant);
 				}
 			} else {
+				queenTest(place,ant);
 				food -= ant.getFoodCost();
 				place.addInsect(ant);
 			}
@@ -218,4 +223,11 @@ public class AntColony {
 	public String toString() {
 		return "Food: " + food + "; " + getAllBees() + "; " + getAllAnts();
 	}
+	
+/*/!\**/	public void queenTest(Place place, Ant ant){
+/*/!\**/		if(ant instanceof QueenAnt){
+/*/!\**/			queenPlace=place;
+/*/!\**/			System.out.println("La reine est en : "+queenPlace);
+/*/!\**/		}
+/*/!\**/	}
 }

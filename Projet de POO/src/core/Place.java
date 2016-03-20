@@ -132,15 +132,16 @@ public class Place {
 	 *            The ant to add to the place.
 	 */
 	public void addInsect(Ant ant) { //new
-		if (this.ant == null) { //si la place est libre on ajoute la fourmiesans soucis
+		if (this.ant == null) { //si la place est libre on ajoute la fourmie sans soucis.
 			this.ant = ant;
 			ant.setPlace(this);
 		} else {
-			if (this.ant instanceof Containing) { //si a cette place il y a une containing, alors on met la fourmie dans cette containing
+			if (this.ant instanceof Containing) { //si a cette place il y a une containing, alors on met la fourmie dans cette containing.
 				((Containing) this.ant).addAnt(ant);
 				ant.setPlace(this);
 			} else {
-				if (ant instanceof Containing) { //sinon on regarde si la foumie a placer est une containing, alors on prend la fourmie déjà en place pour la mettre dans la containing et mettre la containing à cette place
+				if (ant instanceof Containing) { //sinon on regarde si la foumie a placer est une containing,
+//alors on prend la fourmie déjà en place pour la mettre dans la containing et mettre la containing à cette place
 					Ant temp = this.ant;
 					this.ant = ant;
 					ant.setPlace(this);

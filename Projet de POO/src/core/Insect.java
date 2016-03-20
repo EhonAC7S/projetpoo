@@ -11,6 +11,7 @@ public abstract class Insect {
 	protected int armor; // insect's current armor
 	protected Place place; // insect's current location
 	protected boolean waterSafe=false;
+/*/!\**/	protected static int noQueen=-1; //On part de -1 car le constructeur est appelé une fois pour la barre de selection de fourmie.
 
 	/**
 	 * Creates a new Insect with the given armor in the given location
@@ -106,4 +107,9 @@ public abstract class Insect {
 	public String toString () {
 		return this.getClass().getName() + "[" + armor + ", " + place + "]"; // supports inheritance!
 	}
+/*/!\**/	public void noQueen(){
+/*/!\**/			this.reduceArmor(getArmor());
+/*/!\**/			noQueen-=1;
+/*/!\**/			System.out.println("Cette fourmie est une usurpatrice! Elle doit mourir!");	
+/*/!\**/	}
 }

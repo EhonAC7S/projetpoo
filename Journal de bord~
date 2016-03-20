@@ -42,3 +42,9 @@ Avancement:
 -Mise en place de la scubaAnt fonctionnelle lançant des feuilles bleus.
 -Création de l'interface containing et modification de addInsect() dans Place.java.
 -Mise en place du constructeur de bodyguard.
+
+	19/03/2016
+Avancement:
+-Correctons des multiples bugs liés à la bodyguard dans la récupération du type de fourmie contenue.
+-Modifications adéquate de antgame et de place pour la body guard.
+-Le type BodyGuard est implémenté est fonctionne.
