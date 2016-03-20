@@ -3,6 +3,10 @@ import core.Ant;
 import core.Bee;
 import core.AntColony;
 
+/**
+ * @author CESARO Jordan
+ */
+
 public class StunAnt extends Ant {
 	public StunAnt() {
 		super(1);

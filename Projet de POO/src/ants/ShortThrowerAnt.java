@@ -4,18 +4,32 @@ import core.AntColony;
 import core.Bee;
 import core.Ant;
 
-public class ShortThrowerAnt extends Ant {
+public class ShortThrowerAnt extends Ant  implements Damaging {
 	protected int damage;
+	private boolean doubled = false;
 
 	/**
-	 * Creates a new Thrower Ant.
-	 * Armor: 1, Food: 0, Damage: 1
+	 * @author CESARO Jordan
 	 */
+	
 	public ShortThrowerAnt () {
 		super(1);
 		damage = 1;
 		super.foodCost = 3;
 	}
+	
+	public void doubleDamage() {
+		damage = 2*damage;
+	}
+	
+	public void setDoubled() {
+		this.doubled = true;
+	}
+	
+	public boolean getIfDoubled() {
+		return this.doubled;
+	}
+	
 
 	/**
 	 * Returns a target for this ant

@@ -4,6 +4,10 @@ import core.AntColony;
 import core.Bee;
 import core.Ant;
 
+/**
+ * @author CESARO Jordan
+ */
+
 public class SlowAnt extends Ant {
 
 	protected int slowTime;

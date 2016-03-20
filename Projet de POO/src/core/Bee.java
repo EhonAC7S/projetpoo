@@ -3,7 +3,7 @@ package core;
 /**
  * Represents a Bee
  *
- * @author YOUR NAME HERE
+ * @author CESARO Jordan
  */
 public class Bee extends Insect {
 

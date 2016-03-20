@@ -4,8 +4,13 @@ import core.AntColony;
 import core.Bee;
 import core.Ant;
 
-public class LongThrowerAnt extends Ant {
+/**
+ * @author CESARO Jordan
+ */
+
+public class LongThrowerAnt extends Ant implements Damaging {
 	protected int damage;
+	private boolean doubled = false;
 
 	/**
 	 * Creates a new Thrower Ant.
@@ -25,6 +30,19 @@ public class LongThrowerAnt extends Ant {
 	public Bee getTarget () {
 		return place.getClosestBee(4, 20);
 	}
+	
+	public void doubleDamage() {
+		damage = 2*damage;
+	}
+	
+	public void setDoubled() {
+		this.doubled = true;
+	}
+	
+	public boolean getIfDoubled() {
+		return this.doubled;
+	}
+	
 
 	@Override
 	public void action (AntColony colony) {

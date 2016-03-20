@@ -1,5 +1,9 @@
 package core;
 
+/**
+ * @author Auriac
+ */
+
 public class Water extends Place {
 	
 	Water(String name, Place exit){

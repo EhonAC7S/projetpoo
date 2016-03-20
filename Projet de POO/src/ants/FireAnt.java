@@ -4,12 +4,13 @@ import core.Ant;
 import core.AntColony;
 import core.Bee;
 
-
 /**
  * @author Auriac Baptiste
  */
-public class FireAnt extends Ant {
+
+public class FireAnt extends Ant implements Damaging {
 	private int damage=3;
+	private boolean doubled = false;
 	/**
 	 * Creates a new Fire Ant
 	 */
@@ -29,7 +30,19 @@ public class FireAnt extends Ant {
 		System.out.println(this + " ran out of armor and expired");
 		leavePlace();
 	}
-		
+	
+	public void doubleDamage() {
+		damage = 2*damage;
+	}
+	
+	public void setDoubled() {
+		this.doubled = true;
+	}
+	
+	public boolean getIfDoubled() {
+		return this.doubled;
+	}
+	
 
 	@Override
 	public void action(AntColony colony) {

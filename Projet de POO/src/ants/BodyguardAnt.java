@@ -1,6 +1,10 @@
 package ants;
 import core.*;
 
+/**
+ * @author CESARO Jordan
+ */
+
 public class BodyguardAnt extends Ant implements Containing {
 	
 	private Ant antContained = null;

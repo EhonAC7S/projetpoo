@@ -55,7 +55,8 @@ Avancement:
 -Les fourmies bonus ont toutes été implémentées et sont fonctionnelles. Il faut penser à ne pas utiliser de constructeurs avec arguments lorqu'on créer une fourmie, car lors de la création du banc de séléction, cela entraine une erreur NullPointerException.
 -La QueenAnt est rendue unique avec un compteur car le Singleton amenait à un NullPointerException.
 -La QueenAnt ne peut pas être supprimée.
--Il reste une question lorsque la reine est placée derrière les abeilles et qu'elles atteignent le bout des tunnels, victoire ou défaite?
+-La méthode action de QueenAnt est implémentée est foctionnelle grace à l'interface Damaging qui a été rajoutée dans toutes les classes Ant qui ont un attribut damage. Damaging comprend un seteur pour doubler, un geteur, et un double la valeur de damage. On a rajouté de plus un attribut "boolean doubled" à toutes les fourmies (de damaging) permettant de garder en mémoire qu'elles ont le statut de dégats doublés.
+-La QueenAnt a été fini en utilisant l'interface QueenPlace pour gérer les positions multiples. Ainsi on perd dès qu'une abeille arrive sur la position de la reine : celle de sa maison ou celle actuelle sur le terrain. Un problème à gerer était la place du terrain lorsqu'elle était vide. Ce problème est résolu par l'interface QueenPlace lors du calcul des Bees sur la place de la reine en traitant un cas null à part.
 
 Sites consultés:
 https://fr.wikipedia.org/wiki/Singleton_%28patron_de_conception%29#Java

@@ -14,7 +14,7 @@ public class Place {
 	private String name; // a name we can use for debugging
 	private Place exit; // where you leave this place to
 	private Place entrance; // where you enter this place from
-	private ArrayList<Bee> bees; // bees currently in the place
+	public ArrayList<Bee> bees; // bees currently in the place
 	private Ant ant; // ant (singular) currently in the place
 
 	/**
@@ -86,7 +86,9 @@ public class Place {
 		}
 		return null;
 	}
-
+		
+	
+	
 	/**
 	 * Returns the name of the place
 	 *

@@ -9,9 +9,11 @@ import core.Bee;
  *
  * @author Auriac
  */
-public class HungryAnt extends Ant {
+
+public class HungryAnt extends Ant implements Damaging {
 
 	protected int damage;
+	private boolean doubled = false;
 
 	/**
 	 * Creates a new Hungry Ant. Armor: 1, Food: 4
@@ -31,8 +33,23 @@ public class HungryAnt extends Ant {
 	}
 
 	// initialisation d'un compteur pour gérer le temps d'attente
+	
+	public void doubleDamage() {
+		damage = 2*damage;
+	}
+	
+	public void setDoubled() {
+		this.doubled = true;
+	}
+	
+	public boolean getIfDoubled() {
+		return this.doubled;
+	}
+	
+	
+	
+	
 	int counter = 0;
-
 	@Override
 	public void action(AntColony colony) {
 		if (counter == 0) {

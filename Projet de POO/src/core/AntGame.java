@@ -37,6 +37,7 @@ import ants.ShortThrowerAnt;
 import ants.SlowAnt;
 import ants.StunAnt;
 import ants.ThrowerAnt;
+import ants.QueenAnt;
 
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game
@@ -227,14 +228,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 				if (ant instanceof ThrowerAnt) // if we're a thrower, might need
 												// to make a leaf!
 				{
-					Bee target = ((ThrowerAnt) ant).getTarget(); // who we'll
-																	// throw at
-																	// (really
-																	// which
-																	// square,
-																	// but works
-																	// out the
-																	// same)
+					Bee target = ((ThrowerAnt) ant).getTarget(); 
 					if (target != null) {
 						createLeaf(ant, target);
 					}
@@ -267,6 +261,12 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 				}
 				if (ant instanceof LongThrowerAnt){ // if we're a LongThrowerAnt, might need to make a leaf!
 					Bee target = ((LongThrowerAnt) ant).getTarget();
+					if (target != null) {
+						createLeaf(ant, target);
+					}
+				}
+				if (ant instanceof QueenAnt){ // if we're a QueenAnt, might need to make a leaf!
+					Bee target = ((QueenAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
@@ -498,6 +498,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			g2d.fill(leaf);
 		}
 	}
+	
 
 	/**
 	 * Generates the geometric shape to draw for a leaf

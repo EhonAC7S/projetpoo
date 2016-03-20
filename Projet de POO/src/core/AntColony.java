@@ -2,6 +2,7 @@ package core;
 
 import java.util.ArrayList;
 
+import core.QueenPlace;
 import ants.Containing;
 import ants.QueenAnt;
 
@@ -18,11 +19,11 @@ public class AntColony {
 	public static final int MAX_TUNNEL_LENGTH = 12;
 
 	private int food; // amount of food available
-	private Place queenPlace; // where the queen is
+	//private Place queenPlace; // where the queen is
 	private ArrayList<Place> places; // the places in the colony
 	private ArrayList<Place> beeEntrances; // places which bees can enter (the
 											// starts of the tunnels)
-
+	public static QueenPlace placeDeLaReine;
 	/**
 	 * Creates a new ant colony with the given layout.
 	 *
@@ -42,7 +43,8 @@ public class AntColony {
 		// init variables
 		places = new ArrayList<Place>();
 		beeEntrances = new ArrayList<Place>();
-		queenPlace = new Place(QUEEN_NAME); // magic variable namexw
+		//queenPlace = new Place(QUEEN_NAME); // magic variable namexw
+		placeDeLaReine = new QueenPlace(QUEEN_NAME);
 
 		tunnelLength = Math.min(tunnelLength, MAX_TUNNEL_LENGTH); // don't go
 																	// off the
@@ -50,7 +52,7 @@ public class AntColony {
 		// set up tunnels, as a kind of linked-list
 		Place curr, prev; // reference to current exit of the tunnel
 		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
-			curr = queenPlace; // start the tunnel's at the queen
+			curr = placeDeLaReine; // start the tunnel's at the queen
 			int counter = -1;
 			for (int step = 0; step < tunnelLength; step++) {
 				counter += 1;
@@ -107,7 +109,7 @@ public class AntColony {
 	 * @return The queen's location
 	 */
 	public Place getQueenPlace() {
-		return queenPlace;
+		return placeDeLaReine;
 	}
 
 	/**
@@ -136,7 +138,7 @@ public class AntColony {
 	 * @return if there are any bees in the queen's location
 	 */
 	public boolean queenHasBees() {
-		return queenPlace.getBees().length > 0;
+		return (placeDeLaReine.getBees().length > 0);
 	}
 
 	// place an ant if there is enough food available
@@ -154,26 +156,26 @@ public class AntColony {
 			if (place instanceof Water) {
 				if (ant.getWaterSafe() == true) {
 					
-/*/!\**/					if(ant instanceof QueenAnt){
-/*/!\**/						queenTest(place,ant);
-/*/!\**/					}
-/*/!\**/					else{
-/*/!\**/						food -= ant.getFoodCost();
-/*/!\**/						place.addInsect(ant);
-/*/!\**/					}
+					if(ant instanceof QueenAnt){
+						queenTest(place,ant);
+					}
+					else{
+						food -= ant.getFoodCost();
+						place.addInsect(ant);
+					}
 
 				} else {
 					System.out.println("Cette fourmie ne sais pas nager! " + ant);
 				}
 			} else {
 				
-/*/!\**/					if(ant instanceof QueenAnt){
-/*/!\**/						queenTest(place,ant);
-/*/!\**/					}
-/*/!\**/					else{
-/*/!\**/						food -= ant.getFoodCost();
-/*/!\**/						place.addInsect(ant);
-/*/!\**/					}
+					if(ant instanceof QueenAnt){
+						queenTest(place,ant);
+					}
+					else{
+						food -= ant.getFoodCost();
+						place.addInsect(ant);
+					}
 				
 			}
 		} else {
@@ -188,14 +190,14 @@ public class AntColony {
 	 *            Where to remove the ant from
 	 */
 	public void removeAnt(Place place) {
-/*/!\**/		if(place.getAnt() instanceof QueenAnt){
-/*/!\**/			System.out.println("Il est impossible de supprimer sa reine! "+place.getAnt());
-/*/!\**/		}
-/*/!\**/		else{
+		if(place.getAnt() instanceof QueenAnt){
+			System.out.println("Il est impossible de supprimer sa reine! "+place.getAnt());
+		}
+		else{
 			if (place.getAnt() != null) {
 				place.removeInsect(place.getAnt());
 			}
-/*/!\**/		}
+		}
 	}
 
 	/**
@@ -240,17 +242,17 @@ public class AntColony {
 		return "Food: " + food + "; " + getAllBees() + "; " + getAllAnts();
 	}
 	
-/*/!\**/	public void queenTest(Place place, Ant ant){
-/*/!\**/		if(ant instanceof QueenAnt){
-/*/!\**/					if(Ant.noQueen>=2){
-/*/!\**/						System.out.println("Les imposteurs sont interdits! : "+queenPlace);
-/*/!\**/					}
-/*/!\**/					else{
-/*/!\**/						food -= ant.getFoodCost();
-/*/!\**/						place.addInsect(ant);
-/*/!\**/				queenPlace=place;
-/*/!\**/				System.out.println("La reine est en : "+queenPlace);
-/*/!\**/					}
-/*/!\**/		}
-/*/!\**/	}
+	public void queenTest(Place place, Ant ant){
+		if(ant instanceof QueenAnt){
+					if(Ant.noQueen>=2){
+						System.out.println("Les imposteurs sont interdits! : "+placeDeLaReine.positionActuelle);
+					}
+					else{
+						food -= ant.getFoodCost();
+						place.addInsect(ant);
+						placeDeLaReine.positionActuelle=place;
+						System.out.println("La reine est en : "+placeDeLaReine.positionActuelle);
+					}
+		}
+	}
 }
