@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import ants.Containing;
 
 /**
  * An entire colony of ants and their tunnels.
@@ -33,7 +34,7 @@ public class AntColony {
 	 * @param startingFood
 	 *            The starting food for this colony.
 	 */
-	public AntColony(int numTunnels, int tunnelLength, int moatFrequency,int startingFood) {  
+	public AntColony(int numTunnels, int tunnelLength, int moatFrequency, int startingFood) {
 		food = startingFood;
 
 		// init variables
@@ -48,26 +49,26 @@ public class AntColony {
 		Place curr, prev; // reference to current exit of the tunnel
 		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
 			curr = queenPlace; // start the tunnel's at the queen
-			int counter=-1;
-			for (int step = 0; step < tunnelLength; step++){
-				counter+=1;
-				prev = curr; // keep track of the previous guy (who we will exit to)
-				if(moatFrequency!=0 & counter%moatFrequency==1){
+			int counter = -1;
+			for (int step = 0; step < tunnelLength; step++) {
+				counter += 1;
+				prev = curr; // keep track of the previous guy (who we will exit
+								// to)
+				if (moatFrequency != 0 & counter % moatFrequency == 1) {
 					curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev);
-				}
-				else{
-					curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); 
+				} else {
+					curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev);
 				} // create
-																				// new
-																				// place
-																				// with
-																				// an
-																				// exit
-																				// that
-																				// is
-																				// the
-																				// previous
-																				// spot
+					// new
+					// place
+					// with
+					// an
+					// exit
+					// that
+					// is
+					// the
+					// previous
+					// spot
 
 				prev.setEntrance(curr); // the previous person's entrance is the
 										// new spot
@@ -148,21 +149,18 @@ public class AntColony {
 	 */
 	public void deployAnt(Place place, Ant ant) {
 		if (food >= ant.getFoodCost()) {
-			if(place instanceof Water){
-				if(ant.getWaterSafe()==true){
+			if (place instanceof Water) {
+				if (ant.getWaterSafe() == true) {
 					food -= ant.getFoodCost();
 					place.addInsect(ant);
+				} else {
+					System.out.println("Cette fourmie ne sais pas nager! " + ant);
 				}
-				else{
-					System.out.println("Cette fourmie ne sais pas nager! "+ant);
-				}
-			}
-			else{
+			} else {
 				food -= ant.getFoodCost();
 				place.addInsect(ant);
 			}
-		} 
-		else {
+		} else {
 			System.out.println("Not enough food remains to place " + ant);
 		}
 	}
@@ -187,8 +185,15 @@ public class AntColony {
 	public ArrayList<Ant> getAllAnts() {
 		ArrayList<Ant> ants = new ArrayList<Ant>();
 		for (Place p : places) {
-			if (p.getAnt() != null) {
+			if (p.getAnt() != null && !(p.getAnt() instanceof Containing)) {
 				ants.add(p.getAnt());
+			} else {
+				if (p.getAnt() instanceof Containing) {
+					ants.add(p.getAnt());
+					if (((Containing) p.getAnt()).getAnt()!=null)
+					ants.add(((Containing) p.getAnt()).getAnt());
+				}
+
 			}
 		}
 		return ants;

@@ -1,5 +1,6 @@
 package core;
 
+import ants.Containing;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -33,7 +34,8 @@ import ants.ScubaThrowerAnt;
 import ants.ThrowerAnt;
 
 /**
- * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
+ * A class that controls the graphical game of Ants vs. Some-Bees. Game
+ * simulation system and GUI interaction are intermixed.
  *
  * @author Joel
  * @version Fa2014
@@ -55,14 +57,15 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	public static final int TURN_SECONDS = 3; // seconds per turn
 	public static final double LEAF_SPEED = .3; // in seconds
 	private int turn; // current game turn
-	// Michael was here
 	private int frame; // time elapsed since last turn
 	private Timer clock;
 
 	// ant properties (laoded from external files, stored as member variables)
 	private final ArrayList<String> ANT_TYPES;
-	private final Map<String, Image> ANT_IMAGES;// = new HashMap<String,Image>();
-	private final Map<String, Color> LEAF_COLORS;// = new HashMap<String, Color>();
+	private final Map<String, Image> ANT_IMAGES;// = new
+												// HashMap<String,Image>();
+	private final Map<String, Color> LEAF_COLORS;// = new HashMap<String,
+													// Color>();
 
 	// other images (stored as member variables)
 	private final Image TUNNEL_IMAGE = ImageUtils.loadImage("img/tunnel.gif");
@@ -71,7 +74,15 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 
 	// positioning constants
 	public static final Dimension FRAME_SIZE = new Dimension(1280, 720);
-	public static final Dimension ANT_IMAGE_SIZE = new Dimension(66, 71); // assumed size; may be greater than actual image size
+	public static final Dimension ANT_IMAGE_SIZE = new Dimension(66, 71); // assumed
+																			// size;
+																			// may
+																			// be
+																			// greater
+																			// than
+																			// actual
+																			// image
+																			// size
 	public static final int BEE_IMAGE_WIDTH = 58;
 	public static final Point PANEL_POS = new Point(20, 40);
 	public static final Dimension PANEL_PADDING = new Dimension(2, 4);
@@ -86,26 +97,35 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	public static final int LEAF_SIZE = 40;
 
 	// areas that can be clicked
-	private Map<Rectangle, Place> colonyAreas; // maps from a clickable area to a Place
-	private Map<Place, Rectangle> colonyRects; // maps from a Place to its clickable rectangle (reverse lookup!)
-	private Map<Rectangle, Ant> antSelectorAreas; // maps from a clickable area to an Ant that can be deployed
+	private Map<Rectangle, Place> colonyAreas; // maps from a clickable area to
+												// a Place
+	private Map<Place, Rectangle> colonyRects; // maps from a Place to its
+												// clickable rectangle (reverse
+												// lookup!)
+	private Map<Rectangle, Ant> antSelectorAreas; // maps from a clickable area
+													// to an Ant that can be
+													// deployed
 	private Rectangle removerArea; // click to remove an ant
-	private Place tunnelEnd; // a Place representing the end of the tunnels (for drawing)
+	private Place tunnelEnd; // a Place representing the end of the tunnels (for
+								// drawing)
 	private Ant selectedAnt; // which ant is currently selected
 
 	// variables tracking animations
-	private Map<Bee, AnimPosition> allBeePositions; // maps from Bee to an object storing animation status
+	private Map<Bee, AnimPosition> allBeePositions; // maps from Bee to an
+													// object storing animation
+													// status
 	private ArrayList<AnimPosition> leaves; // leaves we're animating
 
 	/**
-	 * Creates a new game of Ants vs. Some-Bees, with the given colony and hive setup
+	 * Creates a new game of Ants vs. Some-Bees, with the given colony and hive
+	 * setup
 	 *
 	 * @param colony
 	 *            The ant colony for the game
 	 * @param hive
 	 *            The hive (and attack plan) for the game
 	 */
-	public AntGame (AntColony colony, Hive hive) {
+	public AntGame(AntColony colony, Hive hive) {
 		// game init stuff
 		this.colony = colony;
 		this.hive = hive;
@@ -126,7 +146,8 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		initializeBees();
 		leaves = new ArrayList<AnimPosition>();
 
-		// map clickable areas to what they refer to. Might be more efficient to use separate components, but this keeps everything together
+		// map clickable areas to what they refer to. Might be more efficient to
+		// use separate components, but this keeps everything together
 		antSelectorAreas = new HashMap<Rectangle, Ant>();
 		colonyAreas = new HashMap<Rectangle, Place>();
 
@@ -151,10 +172,12 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	@Override
-	public void paintComponent (Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // take care of anything else
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.clearRect(0, 0, FRAME_SIZE.width, FRAME_SIZE.height); // clear to background color
+		g2d.clearRect(0, 0, FRAME_SIZE.width, FRAME_SIZE.height); // clear to
+																	// background
+																	// color
 
 		drawAntSelector(g2d);
 
@@ -162,9 +185,15 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		String antString = "none";
 		if (selectedAnt != null) {
 			antString = selectedAnt.getClass().getName();
-			antString = antString.substring(0, antString.length() - 3); // remove the word "ant"
+			antString = antString.substring(0, antString.length() - 3); // remove
+																		// the
+																		// word
+																		// "ant"
 		}
-		g2d.drawString("Ant selected: " + antString, 20, 20); // hard-coded positions, make variable?
+		g2d.drawString("Ant selected: " + antString, 20, 20); // hard-coded
+																// positions,
+																// make
+																// variable?
 		g2d.drawString("Food: " + colony.getFood() + ", Turn: " + turn, 20, 140);
 
 		drawColony(g2d);
@@ -179,32 +208,54 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	/**
-	 * Runs the actual game, processing what occurs on every frame of the game (including individual turns).
-	 * This handles both some game logic (turn order) and animation control
+	 * Runs the actual game, processing what occurs on every frame of the game
+	 * (including individual turns). This handles both some game logic (turn
+	 * order) and animation control
 	 */
-	private void nextFrame () {
+	private void nextFrame() {
 		if (frame == 0) // at the start of a turn
 		{
 			System.out.println("TURN: " + turn);
 
 			// ants take action!
 			for (Ant ant : colony.getAllAnts()) {
-				if (ant instanceof ThrowerAnt) // if we're a thrower, might need to make a leaf!
+				if (ant instanceof ThrowerAnt) // if we're a thrower, might need
+												// to make a leaf!
 				{
-					Bee target = ((ThrowerAnt) ant).getTarget(); // who we'll throw at (really which square, but works out the same)
+					Bee target = ((ThrowerAnt) ant).getTarget(); // who we'll
+																	// throw at
+																	// (really
+																	// which
+																	// square,
+																	// but works
+																	// out the
+																	// same)
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof ScubaThrowerAnt) // if we're a scuba, might need to make a leaf!
+				if (ant instanceof ScubaThrowerAnt) // if we're a scuba, might
+													// need to make a leaf!
 				{
-					Bee target = ((ScubaThrowerAnt) ant).getTarget(); // who we'll throw at (really which square, but works out the same)
+					Bee target = ((ScubaThrowerAnt) ant).getTarget(); // who
+																		// we'll
+																		// throw
+																		// at
+																		// (really
+																		// which
+																		// square,
+																		// but
+																		// works
+																		// out
+																		// the
+																		// same)
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				
-				ant.action(colony); // take the action (actually completes the throw now)
+
+				ant.action(colony); // take the action (actually completes the
+									// throw now)
 			}
 			// bees take action!
 			for (Bee bee : colony.getAllBees()) {
@@ -213,16 +264,20 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			}
 
 			// new invaders attack!
-			Bee[] invaders = hive.invade(colony, turn); // this moves the bees into the colony
+			Bee[] invaders = hive.invade(colony, turn); // this moves the bees
+														// into the colony
 			for (Bee bee : invaders) {
 				startAnimation(bee);
 			}
 
-			// if want to do this to ants as well, will need to start storing dead ones with AnimPositions
+			// if want to do this to ants as well, will need to start storing
+			// dead ones with AnimPositions
 		}
 		if (frame == (int) (LEAF_SPEED * FPS)) // after leaves animate
 		{
-			for (Map.Entry<Bee, AnimPosition> entry : allBeePositions.entrySet()) // remove dead bees
+			for (Map.Entry<Bee, AnimPosition> entry : allBeePositions.entrySet()) // remove
+																					// dead
+																					// bees
 			{
 				if (entry.getKey().getArmor() <= 0) { // if dead bee
 					AnimPosition pos = entry.getValue();
@@ -232,19 +287,20 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		}
 
 		// every frame
-		for (AnimPosition pos : allBeePositions.values()) // apply animations to all the bees
+		for (AnimPosition pos : allBeePositions.values()) // apply animations to
+															// all the bees
 		{
 			if (pos.framesLeft > 0) {
 				pos.step();
 			}
 		}
-		Iterator<AnimPosition> iter = leaves.iterator(); // apply animations ot all the leaves
+		Iterator<AnimPosition> iter = leaves.iterator(); // apply animations ot
+															// all the leaves
 		while (iter.hasNext()) { // iterator so we can remove when finished
 			AnimPosition leaf = iter.next();
 			if (leaf.framesLeft > 0) {
 				leaf.step();
-			}
-			else {
+			} else {
 				iter.remove(); // remove the leaf if done animating
 			}
 		}
@@ -259,15 +315,21 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			frame = 0; // reset frame
 		}
 
-		if (frame == TURN_SECONDS * FPS / 2) // wait half a turn (1.5 sec) before ending
+		if (frame == TURN_SECONDS * FPS / 2) // wait half a turn (1.5 sec)
+												// before ending
 		{
 			// check for end condition before proceeding
 			if (colony.queenHasBees()) { // we lost!
-				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!",
+						JOptionPane.PLAIN_MESSAGE);
 				System.exit(0); // quit
 			}
-			if (hive.getBees().length + colony.getAllBees().size() == 0) { // no more bees--we won!
-				JOptionPane.showMessageDialog(this, "All bees are vanquished. You win!", "Yaaaay!", JOptionPane.PLAIN_MESSAGE);
+			if (hive.getBees().length + colony.getAllBees().size() == 0) { // no
+																			// more
+																			// bees--we
+																			// won!
+				JOptionPane.showMessageDialog(this, "All bees are vanquished. You win!", "Yaaaay!",
+						JOptionPane.PLAIN_MESSAGE);
 				System.exit(0); // quit
 			}
 		}
@@ -276,12 +338,13 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	//
 	/**
 	 * Handles clicking on the screen (used for selecting and deploying ants).
-	 * Synchronized method so we don't create conflicts in amount of food remaining.
+	 * Synchronized method so we don't create conflicts in amount of food
+	 * remaining.
 	 *
 	 * @param e
 	 *            The mouse event representing the click
 	 */
-	private synchronized void handleClick (MouseEvent e) {
+	private synchronized void handleClick(MouseEvent e) {
 		Point pt = e.getPoint();
 
 		// check if deploying an ant
@@ -290,9 +353,15 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 				if (selectedAnt == null) {
 					colony.removeAnt(colonyAreas.get(rect));
 					return; // stop searching
-				}
-				else {
-					Ant deployable = buildAnt(selectedAnt.getClass().getName()); // make a new ant of the appropriate type
+				} else {
+					Ant deployable = buildAnt(selectedAnt.getClass().getName()); // make
+																					// a
+																					// new
+																					// ant
+																					// of
+																					// the
+																					// appropriate
+																					// type
 					colony.deployAnt(colonyAreas.get(rect), deployable);
 					return; // stop searching
 				}
@@ -314,12 +383,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		}
 	}
 
-	// Specifies and starts an animation for a Bee (moving to a particular place)
-	private void startAnimation (Bee b) {
+	// Specifies and starts an animation for a Bee (moving to a particular
+	// place)
+	private void startAnimation(Bee b) {
 		AnimPosition anim = allBeePositions.get(b);
 		if (anim.framesLeft == 0) // if not already animating
 		{
-			Rectangle rect = colonyRects.get(b.getPlace()); // where we want to go to
+			Rectangle rect = colonyRects.get(b.getPlace()); // where we want to
+															// go to
 			if (rect != null && !rect.contains(anim.x, anim.y)) {
 				anim.animateTo(rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, FPS * TURN_SECONDS);
 			}
@@ -327,8 +398,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	// Creates a new leaf (animated) from the Ant source to the Bee target.
-	// Note that really only cares about the target's Place (Ant can target other Bees in same Place)
-	private void createLeaf (Ant source, Bee target) {
+	// Note that really only cares about the target's Place (Ant can target
+	// other Bees in same Place)
+	private void createLeaf(Ant source, Bee target) {
 		Rectangle antRect = colonyRects.get(source.getPlace());
 		Rectangle beeRect = colonyRects.get(target.getPlace());
 		int startX = antRect.x + LEAF_START_OFFSET.width;
@@ -344,8 +416,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	// Draws all the places for the Colony on the given Graphics2D
-	// Includes drawing the Ants deployed to the Colony (but not the Bees moving through it)
-	private void drawColony (Graphics2D g2d) {
+	// Includes drawing the Ants deployed to the Colony (but not the Bees moving
+	// through it)
+	private void drawColony(Graphics2D g2d) {
 		for (Map.Entry<Rectangle, Place> entry : colonyAreas.entrySet()) {
 			Rectangle rect = entry.getKey(); // rectangle area for this place
 			Place place = entry.getValue(); // place to draw
@@ -354,19 +427,29 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			g2d.draw(rect); // border box (where to click)
 
 			if (place != tunnelEnd) {
-				if(place instanceof Water){
+				if (place instanceof Water) {
 					g2d.setColor(Color.BLUE);
 					g2d.fill(rect);
-					g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative image
-				}
-				else if(place instanceof Place){
-					g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative image
+					g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative
+																		// image
+				} else if (place instanceof Place) {
+					g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); // decorative
+																		// image
 				}
 			}
 
 			Ant ant = place.getAnt();
-			if (ant != null) { // draw the ant if we have one
+			if (ant != null) { // draw the ant
+																// if we have
+																// one
 				Image img = ANT_IMAGES.get(ant.getClass().getName());
+				g2d.drawImage(img, rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, null);
+			}
+			if (ant instanceof Containing && ((Containing) ant).getAnt() != null) {
+				Ant containedAnt = ((Containing) ant).getAnt();
+				Image img = ANT_IMAGES.get(ant.getClass().getName());
+				Image img2 = ANT_IMAGES.get(containedAnt.getClass().getName());
+				g2d.drawImage(img2, rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, null);
 				g2d.drawImage(img, rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, null);
 			}
 
@@ -374,17 +457,24 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	// Draws all the Bees (included deceased) in their current locations
-	private void drawBees (Graphics2D g2d) {
-		for (AnimPosition pos : allBeePositions.values()) // go through all the Bee positions
+	private void drawBees(Graphics2D g2d) {
+		for (AnimPosition pos : allBeePositions.values()) // go through all the
+															// Bee positions
 		{
-			g2d.drawImage(BEE_IMAGE, (int) pos.x, (int) pos.y, null); // draw a bee at that position!
+			g2d.drawImage(BEE_IMAGE, (int) pos.x, (int) pos.y, null); // draw a
+																		// bee
+																		// at
+																		// that
+																		// position!
 		}
 	}
 
 	// Draws all the leaves (animation elements) at their current location
-	private void drawLeaves (Graphics2D g2d) {
+	private void drawLeaves(Graphics2D g2d) {
 		for (AnimPosition leafPos : leaves) {
-			double angle = leafPos.framesLeft * Math.PI / 8; // spin PI/8 per frame (magic variable)
+			double angle = leafPos.framesLeft * Math.PI / 8; // spin PI/8 per
+																// frame (magic
+																// variable)
 			Shape leaf = leafShape((int) leafPos.x, (int) leafPos.y, angle, LEAF_SIZE);
 			g2d.setColor(leafPos.color);
 			g2d.fill(leaf);
@@ -404,24 +494,42 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	 *            length of the leaf
 	 * @return a new leaf shape
 	 */
-	private Shape leafShape (int x, int y, double angle, int length) {
+	private Shape leafShape(int x, int y, double angle, int length) {
 		// calculate angles and distances to move
-		double[] a = { angle - Math.PI, angle - 3 * Math.PI / 4, angle - Math.PI / 2, angle - Math.PI / 4, angle, angle + Math.PI / 4, angle + Math.PI / 2, angle + 3 * Math.PI / 4 };
-		double[] d = { length / 3, length / 2.5, length / 2, length / 1.5, length, length / 1.5, length / 2, length / 2.5 };
+		double[] a = { angle - Math.PI, angle - 3 * Math.PI / 4, angle - Math.PI / 2, angle - Math.PI / 4, angle,
+				angle + Math.PI / 4, angle + Math.PI / 2, angle + 3 * Math.PI / 4 };
+		double[] d = { length / 3, length / 2.5, length / 2, length / 1.5, length, length / 1.5, length / 2,
+				length / 2.5 };
 
 		// build a shape that is vaguely leaf-like
 		Path2D.Double curve = new Path2D.Double();
-		curve.moveTo(x + Math.cos(a[0]) * d[0], y + Math.sin(a[0]) * d[0]); // mathematical magic (just moving from start by given angle and distance, in order)
-		curve.quadTo(x + Math.cos(a[1]) * d[1], y + Math.sin(a[1]) * d[1], x + Math.cos(a[2]) * d[2], y + Math.sin(a[2]) * d[2]);
-		curve.quadTo(x + Math.cos(a[3]) * d[3], y + Math.sin(a[3]) * d[3], x + Math.cos(a[4]) * d[4], y + Math.sin(a[4]) * d[4]);
-		curve.quadTo(x + Math.cos(a[5]) * d[5], y + Math.sin(a[5]) * d[5], x + Math.cos(a[6]) * d[6], y + Math.sin(a[6]) * d[6]);
-		curve.quadTo(x + Math.cos(a[7]) * d[7], y + Math.sin(a[7]) * d[7], x + Math.cos(a[0]) * d[0], y + Math.sin(a[0]) * d[0]);
+		curve.moveTo(x + Math.cos(a[0]) * d[0], y + Math.sin(a[0]) * d[0]); // mathematical
+																			// magic
+																			// (just
+																			// moving
+																			// from
+																			// start
+																			// by
+																			// given
+																			// angle
+																			// and
+																			// distance,
+																			// in
+																			// order)
+		curve.quadTo(x + Math.cos(a[1]) * d[1], y + Math.sin(a[1]) * d[1], x + Math.cos(a[2]) * d[2],
+				y + Math.sin(a[2]) * d[2]);
+		curve.quadTo(x + Math.cos(a[3]) * d[3], y + Math.sin(a[3]) * d[3], x + Math.cos(a[4]) * d[4],
+				y + Math.sin(a[4]) * d[4]);
+		curve.quadTo(x + Math.cos(a[5]) * d[5], y + Math.sin(a[5]) * d[5], x + Math.cos(a[6]) * d[6],
+				y + Math.sin(a[6]) * d[6]);
+		curve.quadTo(x + Math.cos(a[7]) * d[7], y + Math.sin(a[7]) * d[7], x + Math.cos(a[0]) * d[0],
+				y + Math.sin(a[0]) * d[0]);
 
 		return curve;
 	}
 
 	// Draws the ant selector area
-	private void drawAntSelector (Graphics2D g2d) {
+	private void drawAntSelector(Graphics2D g2d) {
 		// go through each selector area
 		for (Map.Entry<Rectangle, Ant> entry : antSelectorAreas.entrySet()) {
 			Rectangle rect = entry.getKey(); // selected area
@@ -431,8 +539,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			g2d.setColor(Color.WHITE);
 			if (ant.getFoodCost() > colony.getFood()) {
 				g2d.setColor(Color.GRAY);
-			}
-			else if (ant == selectedAnt) {
+			} else if (ant == selectedAnt) {
 				g2d.setColor(Color.BLUE);
 			}
 			g2d.fill(rect);
@@ -446,7 +553,8 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			g2d.drawImage(img, rect.x + PANEL_PADDING.width, rect.y + PANEL_PADDING.height, null);
 
 			// food cost
-			g2d.drawString("" + ant.getFoodCost(), rect.x + (rect.width / 2), rect.y + ANT_IMAGE_SIZE.height + 4 + PANEL_PADDING.height);
+			g2d.drawString("" + ant.getFoodCost(), rect.x + (rect.width / 2),
+					rect.y + ANT_IMAGE_SIZE.height + 4 + PANEL_PADDING.height);
 		}
 
 		// for removing an ant
@@ -460,10 +568,11 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	/**
-	 * Initializes the Ant graphics for the game. This method loads Ant details from an external file.
-	 * Note that this method MUST be called before others (since they rely on the Ant details!)
+	 * Initializes the Ant graphics for the game. This method loads Ant details
+	 * from an external file. Note that this method MUST be called before others
+	 * (since they rely on the Ant details!)
 	 */
-	private void initializeAnts () {
+	private void initializeAnts() {
 		// load ant properties from external file
 		try {
 			Scanner sc = new Scanner(new File(ANT_FILE));
@@ -471,52 +580,69 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 				String line = sc.nextLine();
 				if (line.matches("\\w.*")) { // not a comment
 					String[] parts = line.split(","); // get the entry parts
-					String antType = ANT_PKG + "." + parts[0].trim(); // prepend package name
-						try {
-							Class.forName(antType); // make sure the class is implemented and we can load it
-							ANT_TYPES.add(antType);
-							ANT_IMAGES.put(antType, ImageUtils.loadImage(parts[1].trim()));
-							if (parts.length > 2) {
-								LEAF_COLORS.put(antType, new Color(Integer.parseInt(parts[2].trim())));
-							}
+					String antType = ANT_PKG + "." + parts[0].trim(); // prepend
+																		// package
+																		// name
+					try {
+						Class.forName(antType); // make sure the class is
+												// implemented and we can load
+												// it
+						ANT_TYPES.add(antType);
+						ANT_IMAGES.put(antType, ImageUtils.loadImage(parts[1].trim()));
+						if (parts.length > 2) {
+							LEAF_COLORS.put(antType, new Color(Integer.parseInt(parts[2].trim())));
 						}
-						catch (ClassNotFoundException e) {
-						} // if class isn't found, will continue (reading next line)
+					} catch (ClassNotFoundException e) {
+					} // if class isn't found, will continue (reading next line)
 				}
 			}
 			sc.close();
-		}
-		catch (IOException e) { // for IOException, NumberFormatException, ArrayIndex exception... basically if anything goes wrong, don't crash
+		} catch (IOException e) { // for IOException, NumberFormatException,
+									// ArrayIndex exception... basically if
+									// anything goes wrong, don't crash
 			System.out.println("Error loading insect gui properties: " + e);
 		}
 
 	}
 
 	/**
-	 * Initializes the Bee graphics for the game. Sets up positions for animations
+	 * Initializes the Bee graphics for the game. Sets up positions for
+	 * animations
 	 */
-	private void initializeBees () {
+	private void initializeBees() {
 		Bee[] bees = hive.getBees();
 		for (int i = 0; i < bees.length; i++) {
-			allBeePositions.put(bees[i], new AnimPosition((int) (HIVE_POS.x + (20 * Math.random() - 10)), (int) (HIVE_POS.y + (100 * Math.random() - 50))));
+			allBeePositions.put(bees[i], new AnimPosition((int) (HIVE_POS.x + (20 * Math.random() - 10)),
+					(int) (HIVE_POS.y + (100 * Math.random() - 50))));
 		}
 	}
 
 	/**
-	 * Initializes the Colony graphics for the game.
-	 * Assumes that the AntColony.getPlaces() method returns places in order by row
+	 * Initializes the Colony graphics for the game. Assumes that the
+	 * AntColony.getPlaces() method returns places in order by row
 	 */
-	private void initializeColony () {
+	private void initializeColony() {
 		Point pos = new Point(PLACE_POS); // start point of the places
 		int width = BEE_IMAGE_WIDTH + 2 * PLACE_PADDING.width;
 		int height = ANT_IMAGE_SIZE.height + 2 * PLACE_PADDING.height;
 		int row = 0;
-		pos.translate((width + PLACE_MARGIN) / 2, 0); // extra shift to make room for queen
+		pos.translate((width + PLACE_MARGIN) / 2, 0); // extra shift to make
+														// room for queen
 		for (Place place : colony.getPlaces()) {
-			if (place.getExit() == colony.getQueenPlace()) // if this place leads to the queen (the end)
+			if (place.getExit() == colony.getQueenPlace()) // if this place
+															// leads to the
+															// queen (the end)
 			{
-				pos.setLocation(PLACE_POS.x, PLACE_POS.y + row * (height + PLACE_MARGIN)); // move down to beginning of next row
-				pos.translate((width + PLACE_MARGIN) / 2, 0); // extra shift to make room for queen
+				pos.setLocation(PLACE_POS.x, PLACE_POS.y + row * (height + PLACE_MARGIN)); // move
+																							// down
+																							// to
+																							// beginning
+																							// of
+																							// next
+																							// row
+				pos.translate((width + PLACE_MARGIN) / 2, 0); // extra shift to
+																// make room for
+																// queen
 				row++; // increase row number
 			}
 
@@ -524,22 +650,29 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 			colonyAreas.put(clickable, place);
 			colonyRects.put(place, clickable);
 
-			pos.translate(width + PLACE_MARGIN, 0); // shift rectangle position for next run
+			pos.translate(width + PLACE_MARGIN, 0); // shift rectangle position
+													// for next run
 		}
 
 		// make queen location
-		pos.setLocation(0, PLACE_POS.y + (row - 1) * (height + PLACE_MARGIN) / 2); // middle of the tunnels (about)
-		Rectangle queenRect = new Rectangle(pos.x, pos.y, 0, 0); // no size, will not be drawn
+		pos.setLocation(0, PLACE_POS.y + (row - 1) * (height + PLACE_MARGIN) / 2); // middle
+																					// of
+																					// the
+																					// tunnels
+																					// (about)
+		Rectangle queenRect = new Rectangle(pos.x, pos.y, 0, 0); // no size,
+																	// will not
+																	// be drawn
 		tunnelEnd = colony.getQueenPlace();
 		colonyAreas.put(queenRect, tunnelEnd);
 		colonyRects.put(tunnelEnd, queenRect);
 	}
 
 	/**
-	 * Initializes the graphical Ant Selector area.
-	 * Assumes that the Ants have already been initialized (and have established image resources)
+	 * Initializes the graphical Ant Selector area. Assumes that the Ants have
+	 * already been initialized (and have established image resources)
 	 */
-	private void initializeAntSelector () {
+	private void initializeAntSelector() {
 		Point pos = new Point(PANEL_POS); // starting point of the panel
 		int width = ANT_IMAGE_SIZE.width + 2 * PANEL_PADDING.width;
 		int height = ANT_IMAGE_SIZE.height + 2 * PANEL_PADDING.height;
@@ -547,13 +680,21 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		removerArea = new Rectangle(pos.x, pos.y, width, height);
 		pos.translate(width + 2, 0);
 
-		for (String antType : ANT_TYPES) // go through the ants in the types; in order
+		for (String antType : ANT_TYPES) // go through the ants in the types; in
+											// order
 		{
-			Rectangle clickable = new Rectangle(pos.x, pos.y, width, height); // where to put the selector
-			Ant ant = buildAnt(antType); // the ant that gets deployed from that selector
-			antSelectorAreas.put(clickable, ant); // register the deployable ant so we can select it
+			Rectangle clickable = new Rectangle(pos.x, pos.y, width, height); // where
+																				// to
+																				// put
+																				// the
+																				// selector
+			Ant ant = buildAnt(antType); // the ant that gets deployed from that
+											// selector
+			antSelectorAreas.put(clickable, ant); // register the deployable ant
+													// so we can select it
 
-			pos.translate(width + 2, 0); // shift rectangle position for next run
+			pos.translate(width + 2, 0); // shift rectangle position for next
+											// run
 		}
 	}
 
@@ -562,18 +703,24 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	 *
 	 * @param antType
 	 *            The name of an Ant subclass (e.g., "HarvesterAnt")
-	 * @return An instance of that subclass, created using the default constructor
+	 * @return An instance of that subclass, created using the default
+	 *         constructor
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private Ant buildAnt (String antType) {
+	private Ant buildAnt(String antType) {
 		Ant ant = null;
 		try {
 			Class antClass = Class.forName(antType); // what class is this type
-			Constructor constructor = antClass.getConstructor(); // find the default constructor (using reflection)
-			ant = (Ant) constructor.newInstance(); // call the default constructor to make a new ant
-		
-		}
-		catch (Exception e) {
+			Constructor constructor = antClass.getConstructor(); // find the
+																	// default
+																	// constructor
+																	// (using
+																	// reflection)
+			ant = (Ant) constructor.newInstance(); // call the default
+													// constructor to make a new
+													// ant
+
+		} catch (Exception e) {
 		}
 		return ant; // return the new ant
 	}
@@ -583,14 +730,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	////////////////////
 
 	@Override
-	public void actionPerformed (ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == clock) {
 			nextFrame();
 		}
 	}
 
 	@Override
-	public void mousePressed (MouseEvent event) {
+	public void mousePressed(MouseEvent event) {
 		handleClick(event); // pass to synchronized method for thread safety!
 		this.repaint(); // request a repaint
 		if (!clock.isRunning()) {
@@ -599,19 +746,19 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 	}
 
 	@Override
-	public void mouseClicked (MouseEvent e) {
+	public void mouseClicked(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseReleased (MouseEvent e) {
+	public void mouseReleased(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseEntered (MouseEvent e) {
+	public void mouseEntered(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseExited (MouseEvent e) {
+	public void mouseExited(MouseEvent e) {
 	}
 
 	/**
@@ -630,7 +777,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		 * @param x
 		 * @param y
 		 */
-		public AnimPosition (int x, int y) {
+		public AnimPosition(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -638,14 +785,15 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		/**
 		 * Moves (translates) the animation position by a single frame
 		 */
-		public void step () {
+		public void step() {
 			x += dx;
 			y += dy;
 			framesLeft--;
 		}
 
 		/**
-		 * Calculates the animation movements to get to the given position from the current position in the specified number of frames
+		 * Calculates the animation movements to get to the given position from
+		 * the current position in the specified number of frames
 		 *
 		 * @param nx
 		 *            Target x
@@ -654,20 +802,22 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		 * @param frames
 		 *            Number of frames to move in
 		 */
-		public void animateTo (int nx, int ny, int frames) {
+		public void animateTo(int nx, int ny, int frames) {
 			framesLeft = frames; // reset number of frames to move
-			dx = (nx - x) / framesLeft; // delta is distance between divided by num frames
+			dx = (nx - x) / framesLeft; // delta is distance between divided by
+										// num frames
 			dy = (ny - y) / framesLeft;
 		}
 
 		@Override
-		public String toString () {
+		public String toString() {
 			return "AnimPosition[x=" + x + ",y=" + y + ",dx=" + dx + ",dy=" + dy + ",framesLeft=" + framesLeft + "]";
 		}
 	}
 
 	/**
-	 * A utility class for working with external images (placed as inner class so less overwhelming)
+	 * A utility class for working with external images (placed as inner class
+	 * so less overwhelming)
 	 */
 	public static class ImageUtils {
 
@@ -678,13 +828,13 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 		 *            The path and filename of the image to load
 		 * @return An Image object representing that image.
 		 */
-		public static Image loadImage (String filename) {
+		public static Image loadImage(String filename) {
 			Image img = null;
 
 			try {
-				img = ImageIO.read(new File(filename)); // read the image from a file
-			}
-			catch (IOException e) {
+				img = ImageIO.read(new File(filename)); // read the image from a
+														// file
+			} catch (IOException e) {
 				System.err.println("Error loading \'" + filename + "\': " + e.getMessage());
 			}
 			return img; // return the image

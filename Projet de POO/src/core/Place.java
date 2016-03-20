@@ -25,7 +25,7 @@ public class Place {
 	 * @param exit
 	 *            The place's exit
 	 */
-	public Place (String name, Place exit) {
+	public Place(String name, Place exit) {
 		this.name = name;
 		this.exit = exit;
 		entrance = null;
@@ -39,7 +39,7 @@ public class Place {
 	 * @param name
 	 *            The place's name
 	 */
-	public Place (String name) {
+	public Place(String name) {
 		this(name, null);
 	}
 
@@ -48,7 +48,7 @@ public class Place {
 	 *
 	 * @return the place's ant
 	 */
-	public Ant getAnt () {
+	public Ant getAnt() {
 		return ant;
 	}
 
@@ -57,24 +57,30 @@ public class Place {
 	 *
 	 * @return an array of the place's bees
 	 */
-	public Bee[] getBees () {
+	public Bee[] getBees() {
 		return bees.toArray(new Bee[0]);
 	}
 
 	/**
-	 * Returns a nearby bee, up to the maxDistance ahead. If multiple bees are the same distance, a random bee is chosen
+	 * Returns a nearby bee, up to the maxDistance ahead. If multiple bees are
+	 * the same distance, a random bee is chosen
 	 *
 	 * @param minDistance
-	 *            The minimum distance away (in Places) a bee can be. A value of -1 means no min distance
+	 *            The minimum distance away (in Places) a bee can be. A value of
+	 *            -1 means no min distance
 	 * @param maxDistance
-	 *            The maximum distance away (in Places) a Bee can be. A value of -1 means no max distance
+	 *            The maximum distance away (in Places) a Bee can be. A value of
+	 *            -1 means no max distance
 	 * @return A random nearby bee.
 	 */
-	public Bee getClosestBee (int minDistance, int maxDistance) {
+	public Bee getClosestBee(int minDistance, int maxDistance) {
 		Place p = this;
 		for (int dist = 0; p != null && dist <= maxDistance; dist++) {
 			if (dist >= minDistance && p.bees.size() > 0) {
-				return p.bees.get((int) (Math.random() * p.bees.size())); // pick a random bee
+				return p.bees.get((int) (Math.random() * p.bees.size())); // pick
+																			// a
+																			// random
+																			// bee
 			}
 			p = p.entrance;
 		}
@@ -86,7 +92,7 @@ public class Place {
 	 *
 	 * @return the name of the place
 	 */
-	public String getName () {
+	public String getName() {
 		return name;
 	}
 
@@ -95,7 +101,7 @@ public class Place {
 	 *
 	 * @return the exit of the place
 	 */
-	public Place getExit () {
+	public Place getExit() {
 		return exit;
 	}
 
@@ -105,7 +111,7 @@ public class Place {
 	 * @param entrance
 	 *            The entrance to the place
 	 */
-	public void setEntrance (Place entrance) {
+	public void setEntrance(Place entrance) {
 		this.entrance = entrance;
 	}
 
@@ -114,26 +120,40 @@ public class Place {
 	 *
 	 * @return the entrance to the place
 	 */
-	public Place getEntrance () {
+	public Place getEntrance() {
 		return entrance;
 	}
 
 	/**
-	 * Adds an ant to the place. If there is already an ant, this method has no effect
+	 * Adds an ant to the place. If there is already an ant, this method has no
+	 * effect
 	 *
 	 * @param ant
 	 *            The ant to add to the place.
 	 */
-	public void addInsect (Ant ant) {
+	public void addInsect(Ant ant) { //new
 		if (this.ant == null) {
 			this.ant = ant;
 			ant.setPlace(this);
+		} else {
+			if (this.ant instanceof Containing) {
+				((Containing) this.ant).addAnt(ant);
+				ant.setPlace(this);
+			} else {
+				if (ant instanceof Containing) {
+					Ant temp = this.ant;
+					this.ant = ant;
+					ant.setPlace(this);
+					((Containing) this.ant).addAnt(temp);
+				} else {
+					System.out.println("Already an ant in " + this); // report
+																		// error
+				}
+
+			}
+
 		}
-		else {if (this.ant instanceof Containing) {
-			
-		}
-			System.out.println("Already an ant in " + this); // report error
-		}
+
 	}
 
 	/**
@@ -142,45 +162,51 @@ public class Place {
 	 * @param bee
 	 *            The bee to add to the place.
 	 */
-	public void addInsect (Bee bee) {
+	public void addInsect(Bee bee) {
 		bees.add(bee);
 		bee.setPlace(this);
 	}
 
 	/**
-	 * Removes the ant from the place. If the given ant is not in this place, this method has no effect
+	 * Removes the ant from the place. If the given ant is not in this place,
+	 * this method has no effect
 	 *
 	 * @param ant
 	 *            The ant to remove from the place
 	 */
-	public void removeInsect (Ant ant) {
-		if (this.ant == ant) {
-			this.ant = null;
+	public void removeInsect(Ant ant) { //new
+		if (this.ant == ant && this.ant instanceof Containing) {
 			ant.setPlace(null);
-		}
-		else {
-			System.out.println(ant + " is not in " + this);
+			this.ant = ((Containing) this.ant).getAnt();
+			((Containing) ant).SupprAnt();
+		} else {
+			if (this.ant == ant) {
+				this.ant = null;
+				ant.setPlace(null);
+			} else {
+				System.out.println(ant + " is not in " + this);
+			}
 		}
 	}
 
 	/**
-	 * Removes the bee from the place. If the given bee is not in this place, this method has no effect
+	 * Removes the bee from the place. If the given bee is not in this place,
+	 * this method has no effect
 	 *
 	 * @param bee
 	 *            The bee to remove from the place.
 	 */
-	public void removeInsect (Bee bee) {
+	public void removeInsect(Bee bee) {
 		if (bees.contains(bee)) {
 			bees.remove(bee);
 			bee.setPlace(null);
-		}
-		else {
+		} else {
 			System.out.println(bee + " is not in " + this);
 		}
 	}
 
 	@Override
-	public String toString () {
+	public String toString() {
 		return name;
 	}
 }
