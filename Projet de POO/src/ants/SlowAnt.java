@@ -8,11 +8,11 @@ public class SlowAnt extends Ant {
 
 	protected int slowTime;
 
-	public SlowAnt(int armor) {
-		super(armor);
+	public SlowAnt() {
+		super(1);
 		// TODO Auto-generated constructor stub
-		foodCost = 0;
-		this.slowTime = 3; //pose le temps de slow apliqué, étant donné que le slow est réduit le tour même, il s'agit d'un slow réel de 2 tours. 
+		foodCost = 4;
+		this.slowTime = 3; //pose le temps de slow appliqué, étant donné que le slow est réduit le tour même, il s'agit d'un slow réel de 2 tours. 
 	}
 	
 	public Bee getTarget () { //on cherche l'abeille la plus proche
@@ -26,6 +26,6 @@ public class SlowAnt extends Ant {
 		if (target != null) {
 			target.setSlow(this.slowTime); //on lui applique un slow (voir méthode setSlow de Bee
 		}
-
+		
 	}
 }

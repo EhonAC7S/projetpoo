@@ -4,15 +4,16 @@ import core.Bee;
 import core.AntColony;
 
 public class StunAnt extends Ant {
-	public StunAnt(int armor) {
-		super(armor);
+	public StunAnt() {
+		super(1);
 		// TODO Auto-generated constructor stub
-		foodCost = 6;
+		super.foodCost = 6;
 	}
-		
+	
 	public Bee getTarget () { //on cherche l'abeille la plus proche
 		return place.getClosestBee(0, 7);
 	}
+	
 	@Override
 	public void action(AntColony colony) {
 		// TODO Auto-generated method stub
@@ -20,6 +21,7 @@ public class StunAnt extends Ant {
 		if (target != null) {
 			target.setStun(); //on lui applique un slow (voir méthode setSlow de Bee
 		}
+		
 	}
 
 }
