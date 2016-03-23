@@ -10,7 +10,7 @@ public abstract class Insect {
 
 	protected int armor; // insect's current armor
 	protected Place place; // insect's current location
-	protected boolean waterSafe=false;
+	protected boolean waterSafe=false; //tell if this Insect can go in the water
 
 
 	/**

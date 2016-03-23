@@ -5,11 +5,13 @@ import core.Bee;
 import core.Ant;
 
 public class ShortThrowerAnt extends Ant  implements Damaging {
-	protected int damage;
+	private int damage;
 	private boolean doubled = false;
 
 	/**
-	 * @author CESARO Jordan
+	 * Create a new Ant : ShortThrower
+	 * 
+	 * 1 Armor, 3 foodCost, 1 Damage.
 	 */
 	
 	public ShortThrowerAnt () {
@@ -17,14 +19,28 @@ public class ShortThrowerAnt extends Ant  implements Damaging {
 		damage = 1;
 		super.foodCost = 3;
 	}
+	/**
+	 * Set the buff of damage
+	 * 
+	 */
 	
 	public void doubleDamage() {
 		damage = 2*damage;
 	}
 	
+	/**
+	 * Setter to tell its buffed
+	 * 
+	 * 
+	 */
+	
 	public void setDoubled() {
 		this.doubled = true;
 	}
+	/**
+	 * A getter of if it is buffed
+	 * 
+	 */
 	
 	public boolean getIfDoubled() {
 		return this.doubled;
@@ -39,7 +55,11 @@ public class ShortThrowerAnt extends Ant  implements Damaging {
 	public Bee getTarget () {
 		return place.getClosestBee(0, 2);
 	}
-
+	/**
+	 * Shot some bullets to enemy
+	 * 
+	 */
+	
 	@Override
 	public void action (AntColony colony) {
 		Bee target = getTarget();

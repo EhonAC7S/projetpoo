@@ -3,14 +3,14 @@ package core;
 /**
  * Represents a Bee
  *
- * @author CESARO Jordan
+ * 
  */
 public class Bee extends Insect {
 
 	private static final int DAMAGE = 1;
-	private boolean slowed = false;
-	private int turnOfSlow = 0;
-	private boolean stun = false;
+	private boolean slowed = false; //Boolean qui indique si la Bee est slow
+	private int turnOfSlow = 0; //nombre de tours de blocage que la Bee subie avant d'avancer.
+	private boolean stun = false;//Boolean qui indique si la Bee est stun
 	/**
 	 * Creates a new bee with the given armor
 	 *
@@ -64,17 +64,32 @@ public class Bee extends Insect {
 							// librement.
 		}
 	}
-
+	/**
+	 * Mettre un slow sur l'abeille
+	 * 
+	 * @param slowTurn
+	 * 					Nombre de tour de slow prévu
+	 */				
 	public void setSlow(int slowTurn) { //si l'abeille subit un ralentissement ce tour, on lui donner l'effet slow et le nombre de tour avant de perdre le ralentissement, elle ne peut être slow si elle l'est déjà. (équilibrage)
 		if (!slowed) {
 			slowed = true;
 			turnOfSlow = slowTurn;
 		}
 	}
+	/**method to know if the bee is slow
+	 * 
+	 * @return if the bee is slow
+	 */
 	
 	public boolean getSlow() { //renvoie si l'abeille est slow
 		return slowed;
 	}
+	
+	/**
+	 * Control on the Bee
+	 * Unslow the bee if she don't have to be slow.
+	 *  
+	 */
 	
 	public void unSlow() { //on enleve le ralentissement si le temps de slow est nul
 		if (turnOfSlow == 0) {
@@ -82,15 +97,28 @@ public class Bee extends Insect {
 		}
 	}
 	
+	/**
+	 * Control on the Bee
+	 * Reduce the slow of one turn.
+	 */
+	
 	public void reduceSlow() { //méthode simple de réduction du temps de slow (implementation possible de perdre un tour de slow pas seulement par la methode action amsi aussi par un bonus d'abeille ou une fourmie de feu ou même imagions une abeille boss enlevant du côntrole à son arrivée.
 		if (turnOfSlow >= 1) {
 			turnOfSlow = turnOfSlow - 1;
 		}
 	}
+	/**
+	 * Control on the Bee
+	 * Set active the stun of the bee
+	 */
 	
 	public void setStun() {
 		this.stun = true;
 	}
+	/**
+	 * Control on the Bee
+	 * Unstun the bee
+	 */
 	
 	public void unStun() {
 		this.stun = false;
@@ -98,7 +126,8 @@ public class Bee extends Insect {
 
 	/**
 	 * A bee's action is to sting the Ant that blocks its exit if it is blocked,
-	 * otherwise it moves to the exit of its current place.
+	 * otherwise it moves to the exit of its current place. It takes in count the control that
+	 * are on this Bee (slow + stun).
 	 */
 	@Override
 	public void action(AntColony colony) {

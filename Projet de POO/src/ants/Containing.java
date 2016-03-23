@@ -2,7 +2,7 @@ package ants;
 import core.Ant;
 
 /**
- * @author CESARO Jordan
+ * The Interface Containing with the specific function of the Ant which can contain Ant
  */
 
 public interface Containing {

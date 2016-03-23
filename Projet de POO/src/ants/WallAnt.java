@@ -4,9 +4,8 @@ import core.Ant;
 import core.AntColony;
 
 /**
- * An ant who throws leaves at bees
+ * An ant which tanks
  *
- * @author Auriac
  */
 public class WallAnt extends Ant {
 	/**
@@ -17,6 +16,10 @@ public class WallAnt extends Ant {
 		super(4);
 		foodCost=4;
 	}
+	/**
+	 * No action.
+	 * 
+	 */
 	
 	@Override
 	public void action (AntColony colony) {

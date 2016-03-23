@@ -3,13 +3,12 @@ package core;
 /**
  * A class representing a basic Ant
  *
- * @author CESARO 
+ * 
  */
 public abstract class Ant extends Insect {
 
 	protected int foodCost; // the amount of food needed to make this ant
 	protected boolean blockTheWay; //new
-	protected static int noQueen=-1; //On part de -1 car le constructeur est appelé une fois pour la barre de selection de fourmie.
 	
 	/**
 	 * Creates a new Ant, with a food cost of 0.
@@ -35,14 +34,17 @@ public abstract class Ant extends Insect {
 	/**
 	 * Removes the ant from its current place
 	 */
+	
 	@Override
-	public void leavePlace () {
+	public void leavePlace () { 
 		place.removeInsect(this);
 	}
-	
+	/**
+	 * The function call which remove an impostor Queen Ant 
+	 * 
+	 */
 	public void noQueen(){
-			this.reduceArmor(getArmor());
-			noQueen-=1;
+			this.reduceArmor(getArmor()); //kill this Queen Ant we have already one.
 			System.out.println("Cette fourmie est une usurpatrice! Elle doit mourir!");	
 	}
 }

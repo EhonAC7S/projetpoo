@@ -241,31 +241,31 @@ public class AntGame extends JPanel implements ActionListener, MouseListener {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof SlowAnt){ // if we're a SlowAnt, might need to make a leaf!
+				else if (ant instanceof SlowAnt){ // if we're a SlowAnt, might need to make a leaf!
 					Bee target = ((SlowAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof StunAnt){ // if we're a StunAnt, might need to make a leaf!
+				else if (ant instanceof StunAnt){ // if we're a StunAnt, might need to make a leaf!
 					Bee target = ((StunAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof ShortThrowerAnt){ // if we're a ShortThrowerAnt, might need to make a leaf!
+				else if (ant instanceof ShortThrowerAnt){ // if we're a ShortThrowerAnt, might need to make a leaf!
 					Bee target = ((ShortThrowerAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof LongThrowerAnt){ // if we're a LongThrowerAnt, might need to make a leaf!
+				else if (ant instanceof LongThrowerAnt){ // if we're a LongThrowerAnt, might need to make a leaf!
 					Bee target = ((LongThrowerAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);
 					}
 				}
-				if (ant instanceof QueenAnt){ // if we're a QueenAnt, might need to make a leaf!
+				else if (ant instanceof QueenAnt){ // if we're a QueenAnt, might need to make a leaf!
 					Bee target = ((QueenAnt) ant).getTarget();
 					if (target != null) {
 						createLeaf(ant, target);

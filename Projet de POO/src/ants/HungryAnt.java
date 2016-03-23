@@ -5,14 +5,14 @@ import core.AntColony;
 import core.Bee;
 
 /**
- * An ant who throws leaves at bees
+ * An ant which 
  *
- * @author Auriac
+ * 
  */
 
 public class HungryAnt extends Ant implements Damaging {
-
-	protected int damage;
+	int counter = 0;
+	private int damage; //damage that it deals when it eats 
 	private boolean doubled = false;
 
 	/**
@@ -32,24 +32,36 @@ public class HungryAnt extends Ant implements Damaging {
 		return place.getClosestBee(0, 0);
 	}
 
-	// initialisation d'un compteur pour gérer le temps d'attente
+	/**
+	 * Set the Buff of Double Damage
+	 * 
+	 */
 	
 	public void doubleDamage() {
 		damage = 2*damage;
 	}
+	/**
+	 * A setter of the Boolean to tell if there is a Buff
+	 * 
+	 */
 	
 	public void setDoubled() {
 		this.doubled = true;
 	}
 	
+	/**
+	 * Getter if there is a buff
+	 * 
+	 */
+	
 	public boolean getIfDoubled() {
 		return this.doubled;
 	}
 	
-	
-	
-	
-	int counter = 0;
+	/**
+	 * Action of the AngryAnt : Eat a Bee every 3 turns.
+	 * 
+	 */
 	@Override
 	public void action(AntColony colony) {
 		if (counter == 0) {
@@ -57,6 +69,7 @@ public class HungryAnt extends Ant implements Damaging {
 			counter = 3;
 			if (target != null) {
 				target.reduceArmor(target.getArmor());
+				
 			} else {
 				counter = 0;
 			}

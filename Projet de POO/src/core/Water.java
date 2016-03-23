@@ -1,7 +1,8 @@
 package core;
 
 /**
- * @author Auriac
+ * A special Place of Water
+ * 
  */
 
 public class Water extends Place {

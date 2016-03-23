@@ -7,12 +7,11 @@ import core.Bee;
 /**
  * An ant who throws leaves at bees
  *
- * @author CESARO Jordan
  */
 
-public class ThrowerAnt extends Ant {
+public class ThrowerAnt extends Ant implements Damaging {
 
-	protected int damage;
+	private int damage;
 	private boolean doubled = false;
 
 	/**
@@ -24,14 +23,27 @@ public class ThrowerAnt extends Ant {
 		damage = 1;
 		super.foodCost = 4;
 	}
+	/**
+	 * Implement the buff
+	 * 
+	 */
 
 	public void doubleDamage() {
 		damage = 2*damage;
 	}
+	/**
+	 * A setter
+	 * 
+	 */
 	
 	public void setDoubled() {
 		this.doubled = true;
 	}
+	
+	/**
+	 * A getter
+	 * 
+	 */
 	
 	public boolean getIfDoubled() {
 		return this.doubled;
@@ -43,9 +55,14 @@ public class ThrowerAnt extends Ant {
 	 *
 	 * @return A bee to target
 	 */
+	
 	public Bee getTarget () {
 		return place.getClosestBee(0, 3);
 	}
+	/**
+	 * Shot some bullets to make damage
+	 * 
+	 */
 
 	@Override
 	public void action (AntColony colony) {

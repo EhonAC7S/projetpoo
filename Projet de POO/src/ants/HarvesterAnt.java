@@ -11,7 +11,9 @@ import java.util.Random;
  * @author Auriac Baptiste
  */
 public class HarvesterAnt extends Ant {
-
+	protected Random rand = new Random();
+	protected int waitTurn = 1+rand.nextInt(2); //nextInt(2) donne une valeur entre 0 et 2
+	protected int i=0;
 	/**
 	 * Creates a new Harvester Ant
 	 */
@@ -21,9 +23,13 @@ public class HarvesterAnt extends Ant {
 	}
 
 	//initialisation des variables pour gérer le temps d'attente aléatoire 
-	int i=0;
-	Random rand = new Random(); 
-	int waitTurn = 1+rand.nextInt(2); //nextInt(2) donne une valeur entre 0 et 2
+	
+	/**
+	 * Provide food to the colony, actualy its not all turn, we use a random function to know when we get food.
+	 * 
+	 */
+	 
+	
 	@Override
 	public void action (AntColony colony) {
 		// TODO: Should produce one additional food for the colony

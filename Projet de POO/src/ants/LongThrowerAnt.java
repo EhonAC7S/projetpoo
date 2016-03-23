@@ -9,12 +9,12 @@ import core.Ant;
  */
 
 public class LongThrowerAnt extends Ant implements Damaging {
-	protected int damage;
+	private int damage;
 	private boolean doubled = false;
 
 	/**
-	 * Creates a new Thrower Ant.
-	 * Armor: 1, Food: 0, Damage: 1
+	 * Creates a new LongThrower Ant.
+	 * Armor: 1, Food: 3, Damage: 1
 	 */
 	public LongThrowerAnt () {
 		super(1);
@@ -30,20 +30,37 @@ public class LongThrowerAnt extends Ant implements Damaging {
 	public Bee getTarget () {
 		return place.getClosestBee(4, 20);
 	}
+	/**
+	 * Set the buff
+	 * 
+	 */
 	
 	public void doubleDamage() {
 		damage = 2*damage;
 	}
+	/**
+	 * A setter
+	 * 
+	 */
 	
 	public void setDoubled() {
 		this.doubled = true;
 	}
+	/**
+	 * A getter 
+	 * 
+	 * @return doubled
+	 * 
+	 */
 	
 	public boolean getIfDoubled() {
 		return this.doubled;
 	}
 	
-
+	/**
+	 * Shot some bullets
+	 * 
+	 */
 	@Override
 	public void action (AntColony colony) {
 		Bee target = getTarget();

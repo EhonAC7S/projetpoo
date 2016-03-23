@@ -149,8 +149,8 @@ public class Place {
 					ant.setPlace(this);
 					((Containing) this.ant).addAnt(temp);
 				} else {
-					System.out.println("Already an ant in " + this); // report
-																		// error
+					System.out.println("Already an ant in " + this); // report error
+																		
 				}
 
 			}
@@ -177,17 +177,17 @@ public class Place {
 	 * @param ant
 	 *            The ant to remove from the place
 	 */
-	public void removeInsect(Ant ant) { //new
-		if (this.ant == ant && this.ant instanceof Containing) {
+	public void removeInsect(Ant ant) { 
+		if (this.ant == ant && this.ant instanceof Containing) { //si la fourmie est une containing
 			ant.setPlace(null);
-			this.ant = ((Containing) this.ant).getAnt();
-			((Containing) ant).SupprAnt();
+			this.ant = ((Containing) this.ant).getAnt(); //on met la fourmie contenue à cette place
+			((Containing) ant).SupprAnt(); //et on supprime la containing
 		} else {
-			if (this.ant == ant) {
+			if (this.ant == ant) { //sinon on supprime classiquement la fourmie de cette place
 				this.ant = null;
 				ant.setPlace(null);
 			} else {
-				System.out.println(ant + " is not in " + this);
+				System.out.println(ant + " is not in " + this); //problème dans le cas où on veut supprimer une fourmie à une place où elle n'est pas.
 			}
 		}
 	}
@@ -208,6 +208,12 @@ public class Place {
 		}
 	}
 
+	/**
+	 * Returns the name of that place.
+	 * 
+	 * @Return the name of that place
+	 * 		
+	 */
 	@Override
 	public String toString() {
 		return name;
