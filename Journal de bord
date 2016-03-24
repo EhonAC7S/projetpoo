@@ -66,4 +66,4 @@ Avancement:
 -Implementation de la JavaDoc des fonctions crées.
 -réajustement des paramètres (public, private, protected) et création de methode adéquate.
 -Relecture complète du code dans le but d'ajuster et d'optimiser le code.
--Nous avons enlever le compteur global de QueenAnt et utilisé QueenPlace et son argument de position actuelle sur le plateau : en effet si on pose une QueenAnt sur le plateau, sa postion devient non null, on peut alors par ce critère limiter à une dépose de QueenAnt.
+-Nous avons enlever le compteur global de QueenAnt et utilisé la sous classe QueenPlace et son argument de position actuelle sur le plateau : en effet si on pose une QueenAnt sur le plateau, sa postion devient non null, on peut alors par ce critère limiter à une dépose de QueenAnt. De plus, cela consomme la nourriture d'essayer de poser une deuxième queenAnt

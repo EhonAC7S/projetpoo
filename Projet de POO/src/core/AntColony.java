@@ -167,6 +167,7 @@ public class AntColony {
 					
 					if(ant instanceof QueenAnt){ //on verifie que si on pose une QueenAnt sur le plateau, cela respecte les contraintes imposées.
 						if(placeDeLaReine.getQueenActualPos()!=null){ //Si on n'a pas déjà posé de QueenAnt alors sa place actuelle sur le plateau est null
+							food-=ant.getFoodCost();
 							System.out.println("Les imposteurs sont interdits! : "+placeDeLaReine.getQueenActualPos());
 						}
 						else{//si on peut la poser, on la pose comme une autre Ant
